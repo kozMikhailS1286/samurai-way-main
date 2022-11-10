@@ -1,9 +1,8 @@
 import s from './Post.module.css';
-import {PostPropsType} from './../MyPosts';
+import { PostType } from './../../../../index';
 
 
-
-const Post = (props: PostPropsType) => {
+const Post = (props: PostType) => {
     return (
         <div className={s.item}>
             <img src='https://cdn1.flamp.ru/489671bbc112e7621d7d9f013bbb8a49_100_100.jpg'/>
