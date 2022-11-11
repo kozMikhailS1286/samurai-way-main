@@ -1,6 +1,11 @@
 import s from './Post.module.css';
-import { PostType } from './../../../../index';
 
+
+type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
 
 const Post = (props: PostType) => {
     return (
