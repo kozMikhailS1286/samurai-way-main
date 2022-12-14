@@ -7,12 +7,13 @@ import News from './components/News/News';
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
 import {Route} from "react-router-dom";
-import {RootStateType} from './redux/state';
+import {RootStateType, ProfilePageType} from './redux/state';
 
 
 type AppPropsType = {
     state:RootStateType
-    addPostCallback: (postMessage: string) => void
+    addPostCallback: () => void
+    updateNewPostText: (newText: string) => void
 }
 const App = (props: AppPropsType) => {
 
@@ -24,8 +25,10 @@ const App = (props: AppPropsType) => {
                     <Route exact path='/dialogs' 
                         render={ () => <Dialogs state={props.state.dialogsPage} /> } />
                     <Route exact path='/profile' 
-                        render={ () => <Profile state={props.state.profilePage}
-                                                addPostCallback={props.addPostCallback}
+                        render={ () => <Profile 
+                            profilePage={props.state.profilePage}               
+                            addPostCallback={props.addPostCallback}
+                            updateNewPostText={props.updateNewPostText}
                         /> } />
                     <Route exact path='/news' component={News} />
                     <Route exact path='/music' component={Music} />
