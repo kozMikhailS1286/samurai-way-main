@@ -1,8 +1,3 @@
-let rerenderEntereTree = (state:RootStateType) => {
-  console.log("state changed")
-}
-
-
 type MessageType = {
   id: number
   message: string
@@ -38,55 +33,71 @@ export type RootStateType = {
   sidebar: SidebarType
 }
 
+export type StoreType = {
+  _state: RootStateType
+  _callSubscriber: (state: RootStateType) => void
+  updateNewPostText: (newText: string) => void
+  addPost: () => void
+  subscribe: (callback: (state: RootStateType) => void) => void
+  getState: () => RootStateType
+}
 
-let state: RootStateType = {
-  profilePage: {
-    posts: [
-      {id: 1, message: "Hi, howe are you?", likesCount: 12},
-      {id: 2, message: "It`s my first post", likesCount: 11},
-      {id: 3, message: "Blabla", likesCount: 11},
-      {id: 4, message: "Dada", likesCount: 11},
-    ],
-    newPostText: "it-kamasutra.com"
-  },
-  dialogsPage: {
-    dialogs: [
-      {id: 1, name: "Dimych"},
-      {id: 2, name: "Andrey"},
-      {id: 3, name: "Sveta"},
-      {id: 4, name: "Sasha"},
-      {id: 5, name: "Victor"},
-      {id: 6, name: "Valera"}
-    ],
+
+
+let store: StoreType = {
+  _state: {
+    profilePage: {
+      posts: [
+        {id: 1, message: "Hi, howe are you?", likesCount: 12},
+        {id: 2, message: "It`s my first post", likesCount: 11},
+        {id: 3, message: "Blabla", likesCount: 11},
+        {id: 4, message: "Dada", likesCount: 11},
+      ],
+      newPostText: "it-kamasutra.com"
+    },
+    dialogsPage: {
+      dialogs: [
+        {id: 1, name: "Dimych"},
+        {id: 2, name: "Andrey"},
+        {id: 3, name: "Sveta"},
+        {id: 4, name: "Sasha"},
+        {id: 5, name: "Victor"},
+        {id: 6, name: "Valera"}
+      ],
     messages: [
-      {id: 1, message: "Hi"},
-      {id: 2, message: "How is yout it-kamasutra?"},
-      {id: 3, message: "Yo"},
-      {id: 4, message: "Yo"},
-      {id: 5, message: "Yo"},
-    ],
+        {id: 1, message: "Hi"},
+        {id: 2, message: "How is yout it-kamasutra?"},
+        {id: 3, message: "Yo"},
+        {id: 4, message: "Yo"},
+        {id: 5, message: "Yo"},
+      ],
+    },
+    sidebar: {},
   },
-  sidebar: {},
+  getState() {    
+    return this._state;
+  },
+  _callSubscriber(state: RootStateType) {
+    console.log("state changed")
+  },
+  addPost () {
+     console.log(this._state);
+      let newPost: PostType = {
+      id: 5,
+      message: this._state.profilePage.newPostText,
+      likesCount: 0
+      }
+      this._state.profilePage.posts.push(newPost);
+      this._state.profilePage.newPostText = ""
+      this._callSubscriber(this._state);
+  },
+  updateNewPostText (newText: string) {
+      this._state.profilePage.newPostText = newText
+      this._callSubscriber(this._state);
+  },
+  subscribe (callback) {
+      this._callSubscriber = callback
+  } 
 }
 
-export const addPost = () => {
-  let newPost: PostType = {
-    id: 5,
-    message: state.profilePage.newPostText,
-    likesCount: 0
-  }
-  state.profilePage.posts.push(newPost);
-  state.profilePage.newPostText = ""
-  rerenderEntereTree(state);
-}
-
-export const updateNewPostText = (newText: string) => {
-  state.profilePage.newPostText = newText
-  rerenderEntereTree(state);
-}
-
-export const subscribe = (callback: (state:RootStateType) => void) => {
-  rerenderEntereTree = callback
-} 
-
-export default state;
+export default store;

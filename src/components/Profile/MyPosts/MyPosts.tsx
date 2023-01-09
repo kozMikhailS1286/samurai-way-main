@@ -26,6 +26,7 @@ const MyPosts = (props: MyPostType) => {
         }
     }
 
+    
     return (
        <div className={s.postsBlock}>
            <h3> My posts </h3>

@@ -7,15 +7,16 @@ import News from './components/News/News';
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
 import {Route} from "react-router-dom";
-import {RootStateType, ProfilePageType} from './redux/state';
+import {RootStateType, StoreType} from './redux/state';
 
-
-type AppPropsType = {
-    state:RootStateType
+type PropsType = {
+    state: RootStateType
     addPostCallback: () => void
     updateNewPostText: (newText: string) => void
 }
-const App = (props: AppPropsType) => {
+
+
+const App: React.FC<PropsType> = (props) => {
 
     return (
             <div className='app-wrapper'>

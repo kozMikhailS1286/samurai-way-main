@@ -1,26 +1,25 @@
-import state, {subscribe} from './redux/state';
+import store from './redux/state';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {addPost} from './redux/state'
-import {RootStateType, updateNewPostText} from './redux/state';
-import { isTryStatement } from 'typescript';
+import {RootStateType} from './redux/state';
 
 let rerenderEntereTree = (state: RootStateType) => {
     ReactDOM.render(
       <BrowserRouter>
         <App 
         state={state}
-        addPostCallback={addPost}
-        updateNewPostText={updateNewPostText}
+        addPostCallback={store.addPost.bind(store)}
+        updateNewPostText={store.updateNewPostText.bind(store)}
         />
       </BrowserRouter>,
       document.getElementById('root')
     );
   }
 
-subscribe(rerenderEntereTree);
 
-rerenderEntereTree(state)
+rerenderEntereTree(store.getState())
+
+store.subscribe(rerenderEntereTree);
