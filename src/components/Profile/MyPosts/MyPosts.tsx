@@ -1,12 +1,11 @@
 import React from 'react';
 import Post from './Post/Post';
 import s from './MyPosts.module.css'
-import { PostType, ProfilePageType } from './../../../redux/state';
+import { ActionsType, ProfilePageType } from './../../../redux/state';
 
 type MyPostType = {
     profilePage: ProfilePageType
-    addPostCallback: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 const MyPosts = (props: MyPostType) => {
@@ -16,13 +15,13 @@ const MyPosts = (props: MyPostType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
-        props.addPostCallback();
+        props.dispatch({type: "ADD-POST"});
     }
 
     let onPostChange = () => {
         if(newPostElement.current) {
             let text = newPostElement.current.value;
-            props.updateNewPostText(text)
+            props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: text})
         }
     }
 

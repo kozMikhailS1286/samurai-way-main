@@ -7,12 +7,11 @@ import News from './components/News/News';
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
 import {Route} from "react-router-dom";
-import {RootStateType, StoreType} from './redux/state';
+import store, {RootStateType, ActionsType} from './redux/state';
 
 type PropsType = {
     state: RootStateType
-    addPostCallback: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 
@@ -28,8 +27,7 @@ const App: React.FC<PropsType> = (props) => {
                     <Route exact path='/profile' 
                         render={ () => <Profile 
                             profilePage={props.state.profilePage}               
-                            addPostCallback={props.addPostCallback}
-                            updateNewPostText={props.updateNewPostText}
+                            dispatch={props.dispatch.bind(store)}
                         /> } />
                     <Route exact path='/news' component={News} />
                     <Route exact path='/music' component={Music} />
