@@ -7,11 +7,12 @@ import News from './components/News/News';
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
 import {Route} from "react-router-dom";
-import store, {RootStateType, ActionsType} from './redux/state';
+import store, {RootStateType, ActionsType, StoreType} from './redux/state';
 
 type PropsType = {
     state: RootStateType
     dispatch: (action: ActionsType) => void
+    store: StoreType
 }
 
 
@@ -23,7 +24,10 @@ const App: React.FC<PropsType> = (props) => {
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Route exact path='/dialogs' 
-                        render={ () => <Dialogs state={props.state.dialogsPage} /> } />
+                        render={ () => <Dialogs 
+                            store={props.store} 
+                            dispatch={props.dispatch.bind(store)}
+                        /> } />
                     <Route exact path='/profile' 
                         render={ () => <Profile 
                             profilePage={props.state.profilePage}               
