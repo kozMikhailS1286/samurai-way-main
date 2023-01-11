@@ -13,6 +13,7 @@ type PropsType = {
     state: RootStateType
     dispatch: (action: ActionsType) => void
     store: StoreType
+
 }
 
 
