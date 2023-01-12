@@ -1,8 +1,8 @@
 import s from './Dialogs.module.css';
-import React, {ChangeEvent} from 'react'
+import React from 'react'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import { DialogPageType, ActionsType, sendMessageAC, updateNewMessageBodyAC, StoreType } from './../../redux/state';
+import { ActionsType, sendMessageAC, updateNewMessageBodyAC, StoreType } from './../../redux/state';
 
 
 type DialogsType = {
@@ -17,7 +17,6 @@ const Dialogs = (props: DialogsType) => {
 
     let dialogsElements = state.dialogs.map(d => <DialogItem id={d.id} name={d.name} /> )
     let messagesElements = state.messages.map(m => <Message message={m.message} dispatch={props.dispatch} /> ) 
-    let newMessageBody = state.newMessageBody;
 
     let newMessageElement = React.createRef<HTMLTextAreaElement>();
 
@@ -29,8 +28,6 @@ const Dialogs = (props: DialogsType) => {
         if (newMessageElement.current) {
            props.store.dispatch(updateNewMessageBodyAC(newMessageElement.current?.value))
         }
-        // let body = e.target.value
-        // props.store.dispatch(updateNewMessageBodyAC(body))
     }
 
     return (
