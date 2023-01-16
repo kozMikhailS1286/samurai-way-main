@@ -2,7 +2,8 @@ import s from './Dialogs.module.css';
 import React from 'react'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import { ActionsType, sendMessageAC, updateNewMessageBodyAC, StoreType } from './../../redux/state';
+import { sendMessageAC, updateNewMessageBodyAC } from './../../redux/dialogs-reducer';
+import { ActionsType, StoreType } from './../../redux/state'
 
 
 type DialogsType = {

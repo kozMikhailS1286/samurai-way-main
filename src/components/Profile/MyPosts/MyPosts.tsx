@@ -1,7 +1,8 @@
 import React from 'react';
 import Post from './Post/Post';
 import s from './MyPosts.module.css'
-import { ActionsType, ProfilePageType, addPostAC, changeNewTextAC } from './../../../redux/state';
+import { addPostAC, changeNewTextAC } from './../../../redux/profile-reducer';
+import { ActionsType, ProfilePageType } from './../../../redux/state'
 
 type MyPostType = {
     profilePage: ProfilePageType
@@ -10,6 +11,8 @@ type MyPostType = {
 
 
 const MyPosts = (props: MyPostType) => {
+    console.log('props.profilePage.newPostText', props.profilePage.newPostText);
+    
 
     let postsElements = props.profilePage.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount} /> )
 
@@ -20,7 +23,10 @@ const MyPosts = (props: MyPostType) => {
     }
 
     let onPostChange = () => {
+        
+        
         if(newPostElement.current) {
+            console.log('post', newPostElement.current?.value);
             props.dispatch(changeNewTextAC(newPostElement.current?.value))
         }
     }

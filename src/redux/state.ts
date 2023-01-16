@@ -1,7 +1,9 @@
-const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
-const ADD_MESSAGE = "ADD-MESSAGE"
+import profileReduser from "./profile-reducer"
+import dialogsReduser from "./dialogs-reducer"
+import sibebarReduser from "./sidebar-reducer"
+import { addPostAC, changeNewTextAC } from './profile-reducer'
+import { updateNewMessageBodyAC, sendMessageAC } from './dialogs-reducer'
+
 
 type MessageType = {
   id: number
@@ -25,7 +27,7 @@ export type DialogPageType = {
   messages: Array<MessageType>
   newMessageBody: string
 }
-type SidebarType = {}
+export type SidebarType = {}
 export type RootStateType = {
   profilePage: ProfilePageType
   dialogsPage: DialogPageType
@@ -41,49 +43,8 @@ export type StoreType = {
 
 export type ActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> | ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>
 
-export const addPostAC = () => {
-  return {
-      type: ADD_POST
-  } as const
-}
 
-export type AddPostActionType = {
-  type: "ADD-POST"
-}
 
-export const changeNewTextAC = (newText: string) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: newText
-  } as const
-}
-
-export type ChangeNewTextActionType = {
-  type: "UPDATE-NEW-POST-TEXT"
-  newText: string
-}
-
-export const sendMessageAC = () => {
-  return {
-    type: ADD_MESSAGE
-  } as const
-} 
-
-export type AddMessageType = {
-  type: "ADD-MESSAGE"
-}
-
-export const updateNewMessageBodyAC = (newMessage: string) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newMessage: newMessage
-  } as const
-}
-
-export type ChangeNewMessageType = {
-  type: "UPDATE-NEW-MESSAGE-TEXT"
-  newMessage: string
-}
 
 let store: StoreType = {
   _state: {
@@ -126,28 +87,14 @@ let store: StoreType = {
     this._callSubscriber = callback
   }, 
   dispatch (action) {
-    if (action.type === "ADD-POST") {
-        let newPost: PostType = {
-          id: 5,
-          message: this._state.profilePage.newPostText,
-          likesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = ""
-        this._callSubscriber(this._state);
-    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-        this._state.profilePage.newPostText = action.newText
-        this._callSubscriber(this._state);
-    } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
-        this._state.dialogsPage.newMessageBody = action.newMessage
-        this._callSubscriber(this._state);
-    } else if (action.type === "ADD-MESSAGE") {
-        let newMessageText = this._state.dialogsPage.newMessageBody;
-        this._state.dialogsPage.newMessageBody = ""
-        this._state.dialogsPage.messages.push({id: 6, message: newMessageText})
-        this._callSubscriber(this._state);
-    }
+    this._state.profilePage = profileReduser(this._state.profilePage, action)
+    this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action)
+    this._state.sidebar = sibebarReduser(this._state.sidebar, action)
+
+    this._callSubscriber(this._state);
   }
 }
+//@ts-ignore
+window.state = store
 
 export default store;

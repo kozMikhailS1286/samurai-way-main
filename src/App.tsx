@@ -17,6 +17,9 @@ type PropsType = {
 }
 
 
+console.log('store', store.getState());
+
+
 const App: React.FC<PropsType> = (props) => {
 
     return (
