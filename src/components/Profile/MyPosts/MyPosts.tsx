@@ -2,33 +2,30 @@ import React from 'react';
 import Post from './Post/Post';
 import s from './MyPosts.module.css'
 import { addPostAC, changeNewTextAC } from './../../../redux/profile-reducer';
-import { ActionsType, ProfilePageType } from '../../../redux/store'
+import {ActionsType, PostType, ProfilePageType} from '../../../redux/store'
 
 type MyPostType = {
-    profilePage: ProfilePageType
-    dispatch: (action: ActionsType) => void
+    updateNewPostText: (text: string) => void
+    addPost: () => void
+
+    posts: Array<PostType>
+    newPostText: string
 }
 
 
 const MyPosts = (props: MyPostType) => {
-    console.log('props.profilePage.newPostText', props.profilePage.newPostText);
-    
-
-    let postsElements = props.profilePage.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount} /> )
+    let postsElements =
+        props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount} /> )
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
-        props.dispatch(addPostAC());
+    let onAddPost = () => {
+        props.addPost();
     }
 
     let onPostChange = () => {
-        
-        
-        if(newPostElement.current) {
-            console.log('post', newPostElement.current?.value);
-            props.dispatch(changeNewTextAC(newPostElement.current?.value))
-        }
+        let text = newPostElement.current?.value
+        text && props.updateNewPostText(text)
     }
 
     
@@ -38,11 +35,11 @@ const MyPosts = (props: MyPostType) => {
            <div>
                 <div>
                     <textarea onChange={onPostChange} ref={ newPostElement }
-                                value={props.profilePage.newPostText}            
+                                value={props.newPostText}
                     />
                 </div>
-                <div>    
-                    <button onClick={ addPost }> Add post </button>
+                <div>
+                    <button onClick={ onAddPost }> Add post </button>
                 </div>
             </div>
 

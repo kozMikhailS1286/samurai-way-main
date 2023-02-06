@@ -15,7 +15,7 @@ let initialState = {
         newPostText: "it-kamasutra.com"
     }
 
-const profileReduser = (state: ProfilePageType = initialState, action: ActionsType) => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
     console.log('STATE', state);
     
     if (action.type === "ADD-POST") {
@@ -61,4 +61,4 @@ export const changeNewTextAC = (newText: string) => {
   
 
 
-export default profileReduser;
+export default profileReducer;

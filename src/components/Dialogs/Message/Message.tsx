@@ -3,7 +3,6 @@ import { ActionsType } from '../../../redux/store';
 
 type MessagePropsType = {
     message: string
-    dispatch: (action: ActionsType) => void
 }
 
 const Message = (props: MessagePropsType) => {
