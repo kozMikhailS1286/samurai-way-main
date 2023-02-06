@@ -2,7 +2,7 @@ import React from 'react';
 import Post from './Post/Post';
 import s from './MyPosts.module.css'
 import { addPostAC, changeNewTextAC } from './../../../redux/profile-reducer';
-import { ActionsType, ProfilePageType } from './../../../redux/state'
+import { ActionsType, ProfilePageType } from '../../../redux/store'
 
 type MyPostType = {
     profilePage: ProfilePageType

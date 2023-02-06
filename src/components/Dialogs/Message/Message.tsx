@@ -1,5 +1,5 @@
 import s from './../Dialogs.module.css';
-import { ActionsType } from './../../../redux/state';
+import { ActionsType } from '../../../redux/store';
 
 type MessagePropsType = {
     message: string

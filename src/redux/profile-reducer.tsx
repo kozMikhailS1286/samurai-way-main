@@ -1,10 +1,21 @@
-import {PostType, ActionsType, ProfilePageType} from './state'
+import {PostType, ActionsType, ProfilePageType} from './store'
 
 
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 
-const profileReduser = (state: ProfilePageType, action: ActionsType) => {
+
+let initialState = {
+        posts: [
+            {id: 1, message: "Hi, howe are you?", likesCount: 12},
+            {id: 2, message: "It`s my first post", likesCount: 11},
+            {id: 3, message: "Blabla", likesCount: 11},
+            {id: 4, message: "Dada", likesCount: 11},
+        ],
+        newPostText: "it-kamasutra.com"
+    }
+
+const profileReduser = (state: ProfilePageType = initialState, action: ActionsType) => {
     console.log('STATE', state);
     
     if (action.type === "ADD-POST") {

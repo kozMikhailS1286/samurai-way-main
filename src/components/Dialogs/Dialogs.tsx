@@ -3,7 +3,7 @@ import React from 'react'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
 import { sendMessageAC, updateNewMessageBodyAC } from './../../redux/dialogs-reducer';
-import { ActionsType, StoreType } from './../../redux/state'
+import { ActionsType, StoreType } from '../../redux/store'
 
 
 type DialogsType = {
