@@ -14,6 +14,7 @@ type MyPostType = {
 
 
 const MyPosts = (props: MyPostType) => {
+    console.log("MyPosts", props)
     let postsElements =
         props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount} /> )
 
@@ -25,6 +26,7 @@ const MyPosts = (props: MyPostType) => {
 
     let onPostChange = () => {
         let text = newPostElement.current?.value
+
         text && props.updateNewPostText(text)
     }
 

@@ -8,13 +8,15 @@ import {DialogPageType} from "../../redux/store";
 type DialogsType = {
     updateNewMessageBodyAC: (body: string) => void
     sendMessage: () => void
-    dialogPage: DialogPageType
+    dialogsPage: DialogPageType
 }
 
 const Dialogs = (props: DialogsType) => {
 
-    let state = props.dialogPage
+    console.log(props)
+    let state = props.dialogsPage
 
+    console.log(state)
     let dialogsElements = state.dialogs.map(d => <DialogItem id={d.id} name={d.name} /> )
     let messagesElements = state.messages.map(m => <Message message={m.message} /> )
 
@@ -41,7 +43,7 @@ const Dialogs = (props: DialogsType) => {
                 <div>
                     <div> <textarea ref={ newMessageElement }
                                     placeholder="Enter your message"
-                                    value={props.dialogPage.newMessageBody}
+                                    value={props.dialogsPage.newMessageBody}
                                     onChange={onNewMessageChange}> </textarea></div>
                     <div> <button onClick={onSendMessageClick}> Send </button></div>
                 </div>

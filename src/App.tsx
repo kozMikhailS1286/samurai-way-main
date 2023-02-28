@@ -18,7 +18,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 // }
 
 
-console.log('store', store.getState());
+
 
 
 const App = () => {
@@ -28,7 +28,7 @@ const App = () => {
                 <Header />
                 <Navbar />
                 <div className="app-wrapper-content">
-                    <Route exact path='/dialogs'  render={ () => <DialogsContainer  /> } />
+                    <Route exact path='/dialogs'  render={ () => <DialogsContainer /> } />
                     <Route exact path='/profile' 
                         render={ () => <Profile /> } />
                     <Route exact path='/news' component={News} />

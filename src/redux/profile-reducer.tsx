@@ -16,10 +16,9 @@ let initialState = {
     }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
-    console.log('STATE', state);
+
     
-    if (action.type === "ADD-POST") {
-        console.log('AddPost', state);
+    if (action.type === ADD_POST) {
         let newPost: PostType = {
           id: 5,
           message: state.newPostText,
@@ -27,9 +26,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
         }
         state.posts.push(newPost);
         state.newPostText = ""
-    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-        console.log('UPDATE-NEW-POST-TEXT', action);
+        return  state
+    } else if (action.type === UPDATE_NEW_POST_TEXT) {
         state.newPostText = action.newText
+        return  state
     }
     return state;
 }
