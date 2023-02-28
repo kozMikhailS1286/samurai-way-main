@@ -24,12 +24,23 @@ let initialState = {
     }
 
 const dialogsReducer = (state: DialogPageType = initialState, action: ActionsType) => {
-    if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
-        state.newMessageBody = action.newMessage
-    } else if (action.type === "ADD-MESSAGE") {
+
+    if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+       return {
+            ...state,
+            newMessageBody: action.newMessage
+        }
+        // stateCopy.newMessageBody = action.newMessage
+    } else if (action.type === ADD_MESSAGE) {
         let newMessageText = state.newMessageBody;
-        state.newMessageBody = ""
-        state.messages.push({id: 6, message: newMessageText})
+        let stateCopy = {
+            ...state,
+            newMessageBody: "",
+            messages: [...state.messages, {id: 6, message: newMessageText}]
+        }
+        // stateCopy.newMessageBody = ""
+        // stateCopy.messages.push({id: 6, message: newMessageText})
+        return stateCopy
     }
     return state;
 }
