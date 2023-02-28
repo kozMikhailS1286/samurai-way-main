@@ -24,12 +24,15 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
           message: state.newPostText,
           likesCount: 0
         }
-        state.posts.push(newPost);
-        state.newPostText = ""
-        return  state
+        let stateCopy = {...state};
+        stateCopy.posts = [...state.posts];
+        stateCopy.posts.push(newPost)
+        stateCopy.newPostText = ""
+        return  stateCopy
     } else if (action.type === UPDATE_NEW_POST_TEXT) {
-        state.newPostText = action.newText
-        return  state
+        let stateCopy = {...state}
+        stateCopy.newPostText = action.newText
+        return  stateCopy
     }
     return state;
 }
