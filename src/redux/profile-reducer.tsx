@@ -2,7 +2,7 @@ import {PostType, ActionsType, ProfilePageType} from './store'
 
 
 const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT" as const
 
 
 let initialState = {
@@ -14,6 +14,8 @@ let initialState = {
         ],
         newPostText: "it-kamasutra.com"
     }
+
+
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
 
@@ -43,8 +45,6 @@ export type AddPostActionType = {
 }
 
 export const addPostAC = () => {
-   
-    
     return {
         type: ADD_POST
     } as const
@@ -60,7 +60,7 @@ export const changeNewTextAC = (newText: string) => {
     return {
       type: UPDATE_NEW_POST_TEXT,
       newText: newText
-    } as const
+    }
 }
   
 

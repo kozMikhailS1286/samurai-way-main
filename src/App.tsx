@@ -6,8 +6,10 @@ import News from './components/News/News';
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
 import {Route} from "react-router-dom";
-import store from './redux/store';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import React from "react";
+import UsersContainer from "./components/Users/UsersContainer";
+
 
 // type PropsType = {
 //     // profilePage: ProfilePageType
@@ -16,8 +18,6 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 //     store: StoreType
 //
 // }
-
-
 
 
 
@@ -31,6 +31,8 @@ const App = () => {
                     <Route exact path='/dialogs'  render={ () => <DialogsContainer /> } />
                     <Route exact path='/profile' 
                         render={ () => <Profile /> } />
+                    <Route exact path='/users'
+                           render={ () => <UsersContainer /> } />
                     <Route exact path='/news' component={News} />
                     <Route exact path='/music' component={Music} />
                     <Route exact path='/settings' component={Settings} />
