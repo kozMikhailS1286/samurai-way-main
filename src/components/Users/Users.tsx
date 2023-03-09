@@ -1,5 +1,7 @@
 import React, {FC, useEffect} from "react";
 import {UsersStatePropsType, UserStateType} from "../../redux/users-reducer";
+import axios from "axios";
+import userPhoto from '../../assets/images/user.png'
 
 type UserPropsType = {
     setUsers: (users: UserStateType[]) => void
@@ -9,42 +11,18 @@ type UserPropsType = {
 }
 const Users: FC<UserPropsType> = (props) => {
 
-        useEffect(() => {
-            props.setUsers([
-                    {
-                        id: 1,
-                        photoUrl: "https://cdn1.flamp.ru/489671bbc112e7621d7d9f013bbb8a49_100_100.jpg",
-                        followed: false,
-                        fullName: "Dmitry",
-                        status: "I am a boss",
-                        location: {city: "Minsk", country: "Belarus"}
-                    },
-                    {
-                        id: 2,
-                        photoUrl: "https://cdn1.flamp.ru/489671bbc112e7621d7d9f013bbb8a49_100_100.jpg",
-                        followed: true,
-                        fullName: "Sasha",
-                        status: "I am a boss too",
-                        location: {city: "Moscow", country: "Russia"}
-                    },
-                    {
-                        id: 3,
-                        photoUrl: "https://cdn1.flamp.ru/489671bbc112e7621d7d9f013bbb8a49_100_100.jpg",
-                        followed: false,
-                        fullName: "Andrey",
-                        status: "I am a boss too",
-                        location: {city: "Kiev", country: "Ukraine"}
-                    }
-                ]
-            )
-        }, [])
+
+    axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+        props.setUsers(response.data.items);
+    })
+
     return (
         <div>
             {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photoUrl}/>
+                            <img src={u.photos.small != null ? u.photos.small : userPhoto}/>
                         </div>
                         <div>
                             {
@@ -59,12 +37,12 @@ const Users: FC<UserPropsType> = (props) => {
                     </span>
                     <span>
                         <span>
-                            <div>{u.fullName}</div>
+                            <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.country}</div>
-                            <div>{u.location.city}</div>
+                            <div>{"u.location.country"}</div>
+                            <div>{"u.location.city"}</div>
                         </span>
                     </span>
                 </div>)
