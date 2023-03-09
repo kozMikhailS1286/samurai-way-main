@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from "react";
-import {UsersStatePropsType, UserStateType} from "../../redux/users-reducer";
+import {UserStateType} from "../../redux/users-reducer";
 import axios from "axios";
 import userPhoto from '../../assets/images/user.png'
 
@@ -9,19 +9,20 @@ type UserPropsType = {
     follow: (value: number) => void
     unfollow: (value: number) => void
 }
-const Users: FC<UserPropsType> = (props) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
+class Users extends React.Component<UserPropsType, UserPropsType>{
+
+    constructor(props: UserPropsType) {
+        super(props);
             axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items);
+                this.props.setUsers(response.data.items);
             })
-        }
     }
-    return (
-        <div>
-            <button onClick={getUsers}> Get Users </button>
-            {
-                props.users.map(u => <div key={u.id}>
+
+    render() {
+        return (
+            <div>
+                {
+                    this.props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img src={u.photos.small != null ? u.photos.small : userPhoto}/>
@@ -30,14 +31,14 @@ const Users: FC<UserPropsType> = (props) => {
                             {
                                 u.followed
                                     ? <button onClick={() => {
-                                        props.follow(u.id)
+                                        this.props.follow(u.id)
                                     }}> Unfollow </button>
                                     : <button onClick={() => {
-                                        props.unfollow(u.id)
+                                        this.props.unfollow(u.id)
                                     }}> Follow </button>}
                         </div>
                     </span>
-                    <span>
+                        <span>
                         <span>
                             <div>{u.name}</div>
                             <div>{u.status}</div>
@@ -47,10 +48,11 @@ const Users: FC<UserPropsType> = (props) => {
                             <div>{"u.location.city"}</div>
                         </span>
                     </span>
-                </div>)
-            }
-        </div>
-    )
+                    </div>)
+                }
+            </div>
+        )
+    }
 }
 
 export default Users;
