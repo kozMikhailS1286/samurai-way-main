@@ -3,7 +3,7 @@ import dialogsReducer from "./dialogs-reducer"
 import sidebarReducer from "./sidebar-reducer"
 import { addPostAC, changeNewTextAC } from './profile-reducer'
 import { updateNewMessageBodyAC, sendMessageAC } from './dialogs-reducer'
-import {followAC, setUsersAC, unFollowAC} from "./users-reducer";
+import {followAC, setUsersAC, unFollowAC, setCurrentPageAC, setTotalUsersCountAC} from "./users-reducer";
 
 
 type MessageType = {
@@ -45,7 +45,8 @@ export type StoreType = {
 
 export type ActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> |
     ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC> |
-    ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC>
+    ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC> | ReturnType<typeof setCurrentPageAC> |
+    ReturnType<typeof setTotalUsersCountAC>
 
 
 
