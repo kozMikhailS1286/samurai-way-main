@@ -4,12 +4,12 @@ import sidebarReducer from "./sidebar-reducer"
 import { addPostAC, changeNewTextAC } from './profile-reducer'
 import { updateNewMessageBodyAC, sendMessageAC } from './dialogs-reducer'
 import {
-  followAC,
-  setUsersAC,
-  unFollowAC,
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  toggleIsFetchingAC
+  follow,
+  setUsers,
+  unfollow,
+  setCurrentPage,
+  setTotalUsersCount,
+  toggleIsFetching
 } from "./users-reducer";
 
 
@@ -52,8 +52,8 @@ export type StoreType = {
 
 export type ActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> |
     ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC> |
-    ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC> | ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersCountAC> | ReturnType<typeof toggleIsFetchingAC>
+    ReturnType<typeof follow> | ReturnType<typeof unfollow> | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleIsFetching>
 
 
 
