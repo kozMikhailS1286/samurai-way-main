@@ -29,7 +29,7 @@ const App = () => {
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Route exact path='/dialogs'  render={ () => <DialogsContainer /> } />
-                    <Route exact path='/profile' 
+                    <Route exact path='/profile/:userId?'
                         render={ () => <ProfileContainer /> } />
                     <Route exact path='/users'
                            render={ () => <UsersContainer /> } />
