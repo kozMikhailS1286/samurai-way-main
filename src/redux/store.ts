@@ -12,6 +12,7 @@ import {
     toggleIsFetching
 } from "./users-reducer";
 import profile from "../components/Profile/Profile";
+import {setUserData} from "./auth-reducer";
 
 export type  ProfileType = {
     "aboutMe": string | null
@@ -87,7 +88,7 @@ export type ActionsType =
     ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
-
+    | ReturnType<typeof setUserData>
 
 // let store: StoreType = {
 //   _state: {
