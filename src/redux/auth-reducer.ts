@@ -8,12 +8,14 @@ export type AuthReducerPropsType = {
     userId: number | null
     email: string | null,
     login: string
+    isAuth: boolean
 }
 
 let initialState: AuthReducerPropsType = {
     userId: null, // в документашке просто "id"
     email: null,
     login: 'samurai',
+    isAuth: false,
     // isFetching: false // чтоб добавить позже самостоятельно
 }
 
@@ -23,7 +25,8 @@ const authReducer = (state: AuthReducerPropsType = initialState, action: Actions
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                isAuth: true
             }
 
         default:
@@ -31,7 +34,7 @@ const authReducer = (state: AuthReducerPropsType = initialState, action: Actions
     }
 }
 
-export const setUserData = (userId: number, email: string | null, login: string) => ( {type: SET_USER_DATA, data: {userId, email, login}} as const )
+export const setAuthUserData = (userId: number, email: string | null, login: string) => ( {type: SET_USER_DATA, data: {userId, email, login}} as const )
 
 
 
