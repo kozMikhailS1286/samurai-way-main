@@ -9,7 +9,7 @@ import {
     unfollow,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching
+    toggleIsFetching, toggleFollowingProgress
 } from "./users-reducer";
 import profile from "../components/Profile/Profile";
 import {setAuthUserData} from "./auth-reducer";
@@ -89,6 +89,7 @@ export type ActionsType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof toggleFollowingProgress>
 
 // let store: StoreType = {
 //   _state: {
