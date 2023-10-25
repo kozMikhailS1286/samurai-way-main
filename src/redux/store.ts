@@ -4,9 +4,9 @@ import sidebarReducer from "./sidebar-reducer"
 import {addPostAC, changeNewTextAC} from './profile-reducer'
 import {updateNewMessageBodyAC, sendMessageAC} from './dialogs-reducer'
 import {
-    follow,
+    followSuccess,
     setUsers,
-    unfollow,
+    unfollowSuccess,
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetching, toggleFollowingProgress
@@ -80,8 +80,8 @@ export type ActionsType =
     ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
     |
-    ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+    ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     |
