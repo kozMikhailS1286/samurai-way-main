@@ -15,7 +15,8 @@ import {compose, Dispatch} from "redux";
 
 let mapStateToProps = (state: AppRootStateType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 

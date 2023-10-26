@@ -9,15 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import React from "react";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
-
-
-// type PropsType = {
-//     // profilePage: ProfilePageType
-//     state: RootStateType
-//     dispatch: (action: ActionsType) => void
-//     store: StoreType
-//
-// }
+import Login from "./components/Login/Login";
 
 
 
@@ -25,7 +17,7 @@ const App = () => {
 
     return (
             <div className='app-wrapper'>
-                <HeaderContainer   />
+                <HeaderContainer />
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Route exact path='/dialogs'  render={ () => <DialogsContainer /> } />
@@ -36,6 +28,7 @@ const App = () => {
                     <Route exact path='/news' component={News} />
                     <Route exact path='/music' component={Music} />
                     <Route exact path='/settings' component={Settings} />
+                    <Route exact path='/login' component={Login} />
                 </div>
             </div>
     );
