@@ -25,12 +25,12 @@ const App = () => {
 
     return (
             <div className='app-wrapper'>
-                <HeaderContainer />
+                <HeaderContainer   />
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Route exact path='/dialogs'  render={ () => <DialogsContainer /> } />
                     <Route exact path='/profile/:userId?'
-                        render={ () => <ProfileContainer /> } />
+                        render={ () => <ProfileContainer  /> } />
                     <Route exact path='/users'
                            render={ () => <UsersContainer /> } />
                     <Route exact path='/news' component={News} />
