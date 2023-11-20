@@ -27,6 +27,7 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
+
 const DialogsContainer = withAuthRedirect(compose<React.FC>(connect(mapStateToProps, mapDispatchToProps))(Dialogs));
 
 export default DialogsContainer;
