@@ -1,7 +1,7 @@
 import s from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/store";
 import Preloader from "../../common/Preloader/Preloader";
-import ProfileContainer from "./ProfileContainer";
+import ProfileStatus from "./ProfileStatus";
 
 
 type ProfileInfoPropsType = {
@@ -16,8 +16,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div>
             <div className={s.descriptionBlock}>
                 {props.profile.photos.large ? <img src={props.profile.photos.large}/> : 'Нет фото'}
-                <h3> {props.profile.aboutMe}</h3>
-                + description
+                <ProfileStatus status={"Status"}/>
             </div>
         </div>
     );
