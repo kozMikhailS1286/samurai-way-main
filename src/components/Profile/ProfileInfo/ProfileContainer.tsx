@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Profile from "../Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../redux/redux-store";
-import {getUserProfileTC} from "../../../redux/profile-reducer";
+import {getProfileStatusTC, getUserProfileTC, updateStatusTC} from "../../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ProfileType} from "../../../redux/store";
 import {compose} from "redux";
@@ -15,31 +15,36 @@ type PathParamsType = {
 type MapStatePropsType = {
     profile: ProfileType | null
     meId: number | null
+    status: string
 }
 
 type MapSDispatchPropsType = {
-    // setUserProfile: (profile: ProfileType | null) => void
     getUserProfileTC: (userId: string) => void
+    getProfileStatusTC: (userId: string) => void
+    updateStatusTC: (status: string) => void
 }
 
-type ownPropstype = MapStatePropsType & MapSDispatchPropsType
-type PropsType = RouteComponentProps<PathParamsType> & ownPropstype
+type ownPropsType = MapStatePropsType & MapSDispatchPropsType;
+type PropsType = RouteComponentProps<PathParamsType> & ownPropsType
 
 function ProfileContainer(props: PropsType){
+
 
     useEffect(() => {
         let userId = props.match.params.userId ?? props.meId
         if (!userId) return
         props.getUserProfileTC(userId)
+        props.getProfileStatusTC(userId)
     }, [
         props.match.params.userId, props.meId
     ]);
 
 
-
     return (
         <div>
             <Profile profile={props.profile}
+                     status={props.status}
+                     updateStatus={props.updateStatusTC}
             />
         </div>
     );
@@ -51,6 +56,7 @@ let WithUrlDataContainer = withRouter(ProfileContainer)
 let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     meId: state.auth.userId,
+    status: state.profilePage.status
 })
 
 
@@ -61,5 +67,8 @@ let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
-        getUserProfileTC}),
+        getUserProfileTC,
+        getProfileStatusTC,
+        updateStatusTC}
+    ),
 )(WithUrlDataContainer)

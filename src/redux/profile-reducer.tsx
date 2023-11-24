@@ -1,11 +1,12 @@
 import {PostType, ActionsType, ProfilePageType, ProfileType} from './store'
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT" as const
 const SET_USER_PROFILE = "SET-USER-PROFILE" as const
+const SET_STATUS = "SET-STATUS" as const
 
 
 let initialState:ProfilePageType = {
@@ -16,12 +17,13 @@ let initialState:ProfilePageType = {
             {id: 4, message: "Dada", likesCount: 11},
         ],
         newPostText: "it-kamasutra.com",
-        profile: null
+        profile: null,
+    status: ""
     }
 
 
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
 
     
     if (action.type === ADD_POST) {
@@ -44,6 +46,11 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
         return {
             ...state,
             profile: action.profile
+        }
+    } else if (action.type === SET_STATUS) {
+        return {
+            ...state,
+            status: action.status
         }
     }
     return state;
@@ -86,6 +93,31 @@ export const getUserProfileTC = (userId: string) => {
             .then((response) => {
                 dispatch(setUserProfile(response.data));
             });
+    }
+}
+
+
+
+
+export const setProfileStatusAC = (status: string) => ({type: SET_STATUS, status} as const)
+
+export const getProfileStatusTC = (userId: string) => {
+    return (dispatch: Dispatch<ActionsType>) => {
+        profileAPI.getStatus(userId)
+            .then((response) => {
+                dispatch(setProfileStatusAC(response.data));
+            });
+    }
+}
+
+export const updateStatusTC = (status: string) => {
+    return (dispatch: Dispatch<ActionsType>) => {
+        profileAPI.updateStatus(status)
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setProfileStatusAC(response.data))
+                }
+            })
     }
 }
   

@@ -1,5 +1,5 @@
-import React, {FC} from "react"
-import {render} from "react-dom";
+import React from "react"
+
 
 export type ProfileStatusPropsType = {
     status: string
@@ -22,6 +22,7 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType>{
             editMode: false
         })
     }
+
 
     render() {
         return (
