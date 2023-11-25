@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Profile from "../Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../redux/redux-store";
-import {getProfileStatusTC, getUserProfileTC, updateStatusTC} from "../../../redux/profile-reducer";
+import {getProfileStatusTC, getUserProfileTC, setProfileStatusAC, updateStatusTC} from "../../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ProfileType} from "../../../redux/store";
 import {compose} from "redux";
@@ -22,6 +22,7 @@ type MapSDispatchPropsType = {
     getUserProfileTC: (userId: string) => void
     getProfileStatusTC: (userId: string) => void
     updateStatusTC: (status: string) => void
+    setProfileStatusAC: (status: string) => void
 }
 
 type ownPropsType = MapStatePropsType & MapSDispatchPropsType;
@@ -45,6 +46,7 @@ function ProfileContainer(props: PropsType){
             <Profile profile={props.profile}
                      status={props.status}
                      updateStatus={props.updateStatusTC}
+                     setProfileStatus={props.setProfileStatusAC}
             />
         </div>
     );
@@ -69,6 +71,7 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         getUserProfileTC,
         getProfileStatusTC,
-        updateStatusTC}
+        updateStatusTC,
+        setProfileStatusAC}
     ),
 )(WithUrlDataContainer)

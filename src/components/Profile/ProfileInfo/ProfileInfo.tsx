@@ -2,12 +2,14 @@ import s from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/store";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import {setProfileStatusAC} from "../../../redux/profile-reducer";
 
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
+    setProfileStatus: (status: string) => void
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -18,7 +20,10 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div>
             <div className={s.descriptionBlock}>
                 {props.profile.photos.large ? <img src={props.profile.photos.large}/> : 'Нет фото'}
-                <ProfileStatus status={props.status}/>
+                <ProfileStatus status={props.status}
+                                updateStatus={props.updateStatus}
+                               setProfileStatus={props.setProfileStatus}
+                />
             </div>
         </div>
     );
