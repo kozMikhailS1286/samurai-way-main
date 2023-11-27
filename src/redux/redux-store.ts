@@ -5,7 +5,7 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {reducer as formReducer} from "redux-form";
 
 
 
@@ -15,13 +15,12 @@ let reducers = combineReducers({
     sidebarPage: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    form: formReducer
 })
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>
-// export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
-// export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 export type AppRootStateType = ReturnType<typeof reducers>
 
