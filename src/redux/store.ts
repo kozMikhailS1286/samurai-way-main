@@ -1,6 +1,6 @@
 import {setProfileStatusAC, setUserProfile} from "./profile-reducer"
 import {addPostAC, changeNewTextAC} from './profile-reducer'
-import {updateNewMessageBodyAC, sendMessageAC} from './dialogs-reducer'
+import {sendMessageAC} from './dialogs-reducer'
 import {
     followSuccess,
     setUsers,
@@ -55,7 +55,7 @@ export type ProfilePageType = {
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageBody: string
+    newMessageBody?: string
 }
 export type SidebarType = {}
 export type RootStateType = {
@@ -75,8 +75,6 @@ export type StoreType = {
 export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewTextAC>
-    |
-    ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
     |
     ReturnType<typeof followSuccess>

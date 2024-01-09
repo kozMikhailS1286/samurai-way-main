@@ -1,6 +1,5 @@
 import {ActionsType, DialogPageType} from './store'
 
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT" as const
 const ADD_MESSAGE = "ADD-MESSAGE" as const
 
 
@@ -20,22 +19,15 @@ let initialState = {
             {id: 4, message: "Yo"},
             {id: 5, message: "Yo"},
         ],
-        newMessageBody: ""
+        // newMessageBody: ""
     }
 
 const dialogsReducer = (state: DialogPageType = initialState, action: ActionsType) => {
 
-    if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-       return {
-            ...state,
-            newMessageBody: action.newMessage
-        }
-        // stateCopy.newMessageBody = action.newMessage
-    } else if (action.type === ADD_MESSAGE) {
-        let newMessageText = state.newMessageBody;
+    if (action.type === ADD_MESSAGE) {
+        let newMessageText = action.newMessageBody;
         let stateCopy = {
             ...state,
-            newMessageBody: "",
             messages: [...state.messages, {id: 6, message: newMessageText}]
         }
         // stateCopy.newMessageBody = ""
@@ -45,26 +37,14 @@ const dialogsReducer = (state: DialogPageType = initialState, action: ActionsTyp
     return state;
 }
 
-export const sendMessageAC = () => {
+export const sendMessageAC = (newMessageBody: string) => {
     return {
-      type: ADD_MESSAGE
+      type: ADD_MESSAGE, newMessageBody
     } as const
   } 
   
   export type AddMessageType = {
     type: "ADD-MESSAGE"
-  }
-  
-  export const updateNewMessageBodyAC = (newMessage: string) => {
-    return {
-      type: UPDATE_NEW_MESSAGE_TEXT,
-      newMessage: newMessage
-    }
-  }
-  
-  export type ChangeNewMessageType = {
-    type: "UPDATE-NEW-MESSAGE-TEXT"
-    newMessage: string
   }
 
 export default dialogsReducer;
