@@ -2,7 +2,6 @@ import s from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/store";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
-import {setProfileStatusAC} from "../../../redux/profile-reducer";
 
 
 type ProfileInfoPropsType = {

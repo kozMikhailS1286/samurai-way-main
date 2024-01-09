@@ -1,5 +1,5 @@
 import {setProfileStatusAC, setUserProfile} from "./profile-reducer"
-import {addPostAC, changeNewTextAC} from './profile-reducer'
+import {addPostAC} from './profile-reducer'
 import {sendMessageAC} from './dialogs-reducer'
 import {
     followSuccess,
@@ -9,7 +9,6 @@ import {
     setTotalUsersCount,
     toggleIsFetching, toggleFollowingProgress
 } from "./users-reducer";
-import profile from "../components/Profile/Profile";
 import {setAuthUserData} from "./auth-reducer";
 
 export type  ProfileType = {
@@ -48,14 +47,12 @@ export type PostType = {
 }
 export type ProfilePageType = {
     posts: Array<PostType>
-    newPostText: string
     profile: ProfileType | null
     status: string
 }
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageBody?: string
 }
 export type SidebarType = {}
 export type RootStateType = {
@@ -74,7 +71,6 @@ export type StoreType = {
 
 export type ActionsType =
     ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewTextAC>
     | ReturnType<typeof sendMessageAC>
     |
     ReturnType<typeof followSuccess>

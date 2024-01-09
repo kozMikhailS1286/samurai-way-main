@@ -4,19 +4,12 @@ import {profileAPI, usersAPI} from "../api/api";
 
 
 const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT" as const
 const SET_USER_PROFILE = "SET-USER-PROFILE" as const
 const SET_STATUS = "SET-STATUS" as const
 
 
 let initialState:ProfilePageType = {
-        posts: [
-            {id: 1, message: "Hi, howe are you?", likesCount: 12},
-            {id: 2, message: "It`s my first post", likesCount: 11},
-            {id: 3, message: "Blabla", likesCount: 11},
-            {id: 4, message: "Dada", likesCount: 11},
-        ],
-        newPostText: "it-kamasutra.com",
+        posts: [],
         profile: null,
     status: ""
     }
@@ -29,18 +22,13 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     if (action.type === ADD_POST) {
         let newPost: PostType = {
           id: 5,
-          message: state.newPostText,
+          message: action.newMessagePost,
           likesCount: 0
         }
         return {
             ...state,
             posts: [...state.posts, newPost],
             newPostText: ""
-        }
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-        return  {
-            ...state,
-            newPostText: action.newText
         }
     } else if (action.type === SET_USER_PROFILE) {
         return {
@@ -60,23 +48,10 @@ export type AddPostActionType = {
     type: "ADD-POST"
 }
 
-export const addPostAC = () => {
+export const addPostAC = (newMessagePost: string) => {
     return {
-        type: ADD_POST
+        type: ADD_POST, newMessagePost
     } as const
-}
-  
-
-export type ChangeNewTextActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-}
-
-export const changeNewTextAC = (newText: string) => {
-    return {
-      type: UPDATE_NEW_POST_TEXT,
-      newText: newText
-    }
 }
 
 export const setUserProfile = (profile: ProfileType | null) => {

@@ -1,7 +1,6 @@
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import {ProfileType} from '../../redux/store';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import {setProfileStatusAC} from "../../redux/profile-reducer";
 
 type ProfilePropsType = {
     profile: ProfileType | null
