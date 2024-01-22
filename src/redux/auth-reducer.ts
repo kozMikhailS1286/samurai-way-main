@@ -1,8 +1,8 @@
 import {ActionsType} from "./store";
-import {UsersStatePropsType} from "./users-reducer";
-import Dialogs from "../components/Dialogs/Dialogs";
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootStateType} from "../redux/redux-store";
 
 const SET_USER_DATA = "SET_USER_DATA" as const
 
@@ -37,16 +37,36 @@ const authReducer = (state: AuthReducerPropsType = initialState, action: Actions
     }
 }
 
-export const setAuthUserData = (userId: number, email: string | null, login: string) => ( {type: SET_USER_DATA, data: {userId, email, login}} as const )
+export const setAuthUserData = (userId: number | null, email: string | null, login: string, isAuth: boolean) => ( {type: SET_USER_DATA,
+    data: {userId, email, login, isAuth}} as const )
+
 
 export const getAuthUserDataTC = () => (dispatch: Dispatch<ActionsType>) => {
     authAPI.me()
         .then(data => {
         if (data.resultCode === 0) {
             let {id, login, email} = data.data;
-            dispatch(setAuthUserData(id, login, email))
+            dispatch(setAuthUserData(id, login, email, true))
         }
     })
+}
+
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: ThunkDispatch<AppRootStateType,void,AnyAction>) => {
+    authAPI.login(email, password, rememberMe)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(getAuthUserDataTC())
+            }
+        })
+}
+
+export const logout = () => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.logout()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, " ", false))
+            }
+        })
 }
 
 export default authReducer;
