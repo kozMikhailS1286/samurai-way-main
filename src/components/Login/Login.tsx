@@ -15,7 +15,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field placeholder={'Login'} component={Input} name={'login'}
-                       validate={[required, maxLength10]}
+                       validate={[required]}
                 />
             </div>
             <div>
