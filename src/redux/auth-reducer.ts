@@ -29,7 +29,6 @@ const authReducer = (state: AuthReducerPropsType = initialState, action: Actions
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             }
 
         default:
@@ -54,7 +53,7 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch<ActionsType>) => {
 export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: ThunkDispatch<AppRootStateType,void,AnyAction>) => {
     authAPI.login(email, password, rememberMe)
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.resultCode === 0) {
                 dispatch(getAuthUserDataTC())
             }
         })
@@ -63,7 +62,7 @@ export const login = (email: string, password: string, rememberMe: boolean) => (
 export const logout = () => (dispatch: Dispatch<ActionsType>) => {
     authAPI.logout()
         .then(res => {
-            if (res.data.resultCode === 0) {
+            if (res.resultCode === 0) {
                 dispatch(setAuthUserData(null, null, " ", false))
             }
         })

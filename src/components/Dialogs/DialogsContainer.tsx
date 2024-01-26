@@ -1,5 +1,5 @@
 import React from 'react'
-import { sendMessageAC } from './../../redux/dialogs-reducer';
+import { sendMessageAC } from '../../redux/dialogs-reducer';
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";

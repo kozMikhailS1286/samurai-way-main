@@ -1,7 +1,12 @@
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "./../../components/common/FormControls/FormControls";
-import {maxLengthCreator, required} from "./../../utils/validators/required";
+import {connect} from "react-redux";
+import {login} from "../../redux/auth-reducer";
+import {maxLengthCreator, required} from "../../utils/validators/required";
+import {Input} from "../common/FormControls/FormControls";
+import {Redirect} from "react-router-dom";
+import {AppRootStateType} from "../../redux/redux-store";
+
 
 export type FormDataType = {
     login: string
@@ -9,7 +14,12 @@ export type FormDataType = {
     rememberMe: boolean
 }
 
-let maxLength10 = maxLengthCreator(10)
+let maxLength10 = maxLengthCreator(40)
+
+const mapStateToProps = (state: AppRootStateType) => ({
+    isAuth: state.auth.isAuth
+})
+
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
@@ -19,7 +29,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 />
             </div>
             <div>
-                <Field placeholder={'Password'} component={Input} name={'password'}
+                <Field placeholder={'Password'} component={Input} name={'password'} type={"password"}
                        validate={[required, maxLength10]}
                 />
             </div>
@@ -35,17 +45,25 @@ export const LoginReduxForm = reduxForm<FormDataType>({
     form: 'login'
 })(LoginForm)
 
-const Login = () => {
+const Login = (props: any) => {
 
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+            props.login(formData.login, formData.password, formData.rememberMe)
+        // console.log(formData)
     }
+    console.log(props, 'Login')
 
-
+    if (props.isAuth) {
+        return <Redirect to={"/profile"}/>
+    }
+    
     return <div>
         <h1> LOGIN </h1>
         <LoginReduxForm onSubmit={onSubmit} />
     </div>
 }
 
-export default Login;
+
+
+
+export default connect(mapStateToProps, {login}) (Login);
