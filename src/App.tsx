@@ -1,5 +1,5 @@
 import './App.css';
-import HeaderContainer from "./components/Header/HeaderContainer"
+import HeaderContainer, {HeaderPropsType} from "./components/Header/HeaderContainer"
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Music from './components/Music/Music'
@@ -10,19 +10,35 @@ import React from "react";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
 import Login from "./components/Login/Login";
+import {connect} from "react-redux";
+import {initializeAppTC} from "./redux/app-reducer";
+import {AppRootStateType} from "./redux/redux-store";
+import Preloader from "./components/common/Preloader/Preloader";
 
 
+export type AppPropsType = {
+    initializeAppTC: () => void
+    initialized?: boolean
+}
 
-const App = () => {
+class App extends React.Component<AppPropsType, AppPropsType>{
 
-    return (
+    componentDidMount() {
+        this.props.initializeAppTC()
+    }
+
+    render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
+        return (
             <div className='app-wrapper'>
                 <HeaderContainer />
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Route exact path='/dialogs'  render={ () => <DialogsContainer /> } />
                     <Route exact path='/profile/:userId?'
-                        render={ () => <ProfileContainer  /> } />
+                           render={ () => <ProfileContainer  /> } />
                     <Route exact path='/users'
                            render={ () => <UsersContainer /> } />
                     <Route exact path='/news' component={News} />
@@ -31,7 +47,12 @@ const App = () => {
                     <Route exact path='/login' component={Login} />
                 </div>
             </div>
-    );
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state: AppRootStateType) => ({
+    initialized: state.app.initialized
+})
+
+export default connect(mapStateToProps, {initializeAppTC})(App);

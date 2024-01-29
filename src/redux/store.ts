@@ -10,6 +10,7 @@ import {
     toggleIsFetching, toggleFollowingProgress
 } from "./users-reducer";
 import {setAuthUserData} from "./auth-reducer";
+import {initializedSuccess} from "./app-reducer";
 
 export type  ProfileType = {
     "aboutMe": string | null
@@ -84,6 +85,7 @@ export type ActionsType =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setProfileStatusAC>
+    | ReturnType<typeof initializedSuccess>
 
 // let store: StoreType = {
 //   _state: {

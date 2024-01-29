@@ -33,7 +33,9 @@ function ProfileContainer(props: PropsType){
 
     useEffect(() => {
         let userId = props.match.params.userId ?? props.meId
-        if (!userId) return
+        if (!userId) {
+            props.history.push('/login')
+        }
         props.getUserProfileTC(userId)
         props.getProfileStatusTC(userId)
     }, [
