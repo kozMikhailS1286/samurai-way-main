@@ -6,10 +6,11 @@ import {maxLengthCreator, required} from "../../utils/validators/required";
 import {Input} from "../common/FormControls/FormControls";
 import {Redirect} from "react-router-dom";
 import {AppRootStateType} from "../../redux/redux-store";
+import s from "./../common/FormControls/FormControls.module.css"
 
 
 export type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
@@ -24,7 +25,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={'Login'} component={Input} name={'login'}
+                <Field placeholder={'Email'} component={Input} name={'email'}
                        validate={[required]}
                 />
             </div>
@@ -36,19 +37,23 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type={"checkbox"} component={Input} name={'rememberMe'}/> Remember me
             </div>
+                {props.error && <div className={s.formSummeryError}>
+                    {props.error}
+                </div>
+                }
             <button> Login </button>
         </form>
     )
 }
 
 export const LoginReduxForm = reduxForm<FormDataType>({
-    form: 'login'
+    form: 'email'
 })(LoginForm)
 
 const Login = (props: any) => {
 
     const onSubmit = (formData: FormDataType) => {
-            props.login(formData.login, formData.password, formData.rememberMe)
+            props.login(formData.email, formData.password, formData.rememberMe)
         // console.log(formData)
     }
     console.log(props, 'Login')

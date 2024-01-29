@@ -3,6 +3,7 @@ import {AnyAction, Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../redux/redux-store";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET_USER_DATA" as const
 
@@ -55,6 +56,10 @@ export const login = (email: string, password: string, rememberMe: boolean) => (
         .then(res => {
             if (res.resultCode === 0) {
                 dispatch(getAuthUserDataTC())
+            }
+            else {
+                let message = res.messages ? res.messages[0] : "Some error";
+                dispatch(stopSubmit("login", {_error: message}))
             }
         })
 }

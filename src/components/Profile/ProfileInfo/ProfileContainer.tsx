@@ -58,7 +58,7 @@ let WithUrlDataContainer = withRouter(ProfileContainer)
 let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     meId: state.auth.userId,
-    status: state.profilePage.status
+    status: state.profilePage.status,
 })
 
 

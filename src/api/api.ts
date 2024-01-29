@@ -53,6 +53,7 @@ export const authAPI = {
             })
     },
     login(email: string, password: string, rememberMe: boolean = false) {
+        debugger
         return instance.post(`auth/login`, {email, password, rememberMe})
             .then(response => {
                 return response.data
