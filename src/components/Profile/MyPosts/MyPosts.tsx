@@ -3,8 +3,8 @@ import Post from './Post/Post';
 import s from './MyPosts.module.css'
 import {PostType} from '../../../redux/store'
 import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "./../../../utils/validators/required";
-import {Textarea} from "./../../common/FormControls/FormControls";
+import {maxLengthCreator, required} from "../../../utils/validators/required";
+import {Textarea} from "../../common/FormControls/FormControls";
 
 type MyPostType = {
     updateNewPostText: (text: string) => void
@@ -16,27 +16,30 @@ type MyPostType = {
 
 let maxLength10 = maxLengthCreator(10)
 
-const MyPosts = (props: MyPostType) => {
+
+// Но с коннектом в Реакт Мемо нет необходимости, т.к. это в этом случае делает сам Реакт.
+
+const MyPosts = React.memo((props: MyPostType) => {
     console.log("MyPosts", props)
     let postsElements =
-        props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount} /> )
+        props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     let addPost = (values: any) => {
         props.addPost(values.newMessagePost);
     }
 
     return (
-       <div className={s.postsBlock}>
-           <h3> My posts </h3>
+        <div className={s.postsBlock}>
+            <h3> My posts </h3>
 
-           <AddMyPostFormRedux onSubmit={addPost} />
+            <AddMyPostFormRedux onSubmit={addPost}/>
 
             <div className={s.posts}>
                 {postsElements}
             </div>
-       </div>
+        </div>
     );
-}
+})
 
 const AddMyPostForm = (props: any) => {
     return (

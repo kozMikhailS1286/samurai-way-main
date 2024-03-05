@@ -9,7 +9,11 @@ const SET_STATUS = "SET-STATUS" as const
 
 
 let initialState:ProfilePageType = {
-        posts: [],
+        posts: [
+            {likesCount: 0, id: 1, message: "One"},
+            {likesCount: 0, id: 1, message: "Two"},
+            {likesCount: 0, id: 1, message: "Three"}
+        ],
         profile: null,
     status: ""
     }
