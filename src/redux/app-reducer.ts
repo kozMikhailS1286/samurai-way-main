@@ -5,7 +5,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "./redux-store";
 
 
-const SET_INITIALIZED = "SET_INITIALIZED" as const
+const SET_INITIALIZED = "app/SET_INITIALIZED" as const
 
 export type appReducerPropsType = {
     initialized: boolean

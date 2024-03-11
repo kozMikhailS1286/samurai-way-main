@@ -1,6 +1,6 @@
 import {ActionsType, DialogPageType} from './store'
 
-const ADD_MESSAGE = "ADD-MESSAGE" as const
+const ADD_MESSAGE = "dialogs/ADD-MESSAGE" as const
 
 
 let initialState = {
