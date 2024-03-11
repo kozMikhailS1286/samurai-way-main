@@ -1,4 +1,4 @@
-import {setProfileStatusAC, setUserProfile} from "./profile-reducer"
+import {deletePostAC, setProfileStatusAC, setUserProfile} from "./profile-reducer"
 import {addPostAC} from './profile-reducer'
 import {sendMessageAC} from './dialogs-reducer'
 import {
@@ -86,6 +86,7 @@ export type ActionsType =
     | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setProfileStatusAC>
     | ReturnType<typeof initializedSuccess>
+    | ReturnType<typeof deletePostAC>
 
 // let store: StoreType = {
 //   _state: {

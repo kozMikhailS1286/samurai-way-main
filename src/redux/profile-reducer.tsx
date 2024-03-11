@@ -3,16 +3,17 @@ import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
 
-const ADD_POST = "ADD-POST"
+const ADD_POST = "ADD-POST" as const
 const SET_USER_PROFILE = "SET-USER-PROFILE" as const
 const SET_STATUS = "SET-STATUS" as const
+const DELETE_POST = "DELETE_POST" as const
 
 
 let initialState:ProfilePageType = {
         posts: [
             {likesCount: 0, id: 1, message: "One"},
-            {likesCount: 0, id: 1, message: "Two"},
-            {likesCount: 0, id: 1, message: "Three"}
+            {likesCount: 0, id: 2, message: "Two"},
+            {likesCount: 0, id: 3, message: "Three"}
         ],
         profile: null,
     status: ""
@@ -44,8 +45,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             ...state,
             status: action.status
         }
+    } else if (action.type === DELETE_POST) {
+        return {
+            ...state,
+            posts: state.posts.filter(p => p.id !== action.id)
+        }
+    } else {
+        return state;
     }
-    return state;
 }
 
 export type AddPostActionType = {
@@ -55,6 +62,12 @@ export type AddPostActionType = {
 export const addPostAC = (newMessagePost: string) => {
     return {
         type: ADD_POST, newMessagePost
+    } as const
+}
+
+export const deletePostAC = (id: number) => {
+    return {
+        type: DELETE_POST, id
     } as const
 }
 

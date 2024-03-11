@@ -28,6 +28,7 @@ const MyPosts = React.memo((props: MyPostType) => {
         props.addPost(values.newMessagePost);
     }
 
+
     return (
         <div className={s.postsBlock}>
             <h3> My posts </h3>
