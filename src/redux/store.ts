@@ -73,8 +73,7 @@ export type StoreType = {
 export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof sendMessageAC>
-    |
-    ReturnType<typeof followSuccess>
+    | ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>

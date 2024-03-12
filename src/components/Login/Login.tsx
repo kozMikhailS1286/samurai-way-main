@@ -21,9 +21,9 @@ const mapStateToProps = (state: AppRootStateType) => ({
     isAuth: state.auth.isAuth
 })
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={'Email'} component={Input} name={'email'}
                        validate={[required]}
@@ -37,8 +37,8 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type={"checkbox"} component={Input} name={'rememberMe'}/> Remember me
             </div>
-                {props.error && <div className={s.formSummeryError}>
-                    {props.error}
+                {error && <div className={s.formSummeryError}>
+                    {error}
                 </div>
                 }
             <button> Login </button>
@@ -54,9 +54,7 @@ const Login = (props: any) => {
 
     const onSubmit = (formData: FormDataType) => {
             props.login(formData.email, formData.password, formData.rememberMe)
-        // console.log(formData)
     }
-    console.log(props, 'Login')
 
     if (props.isAuth) {
         return <Redirect to={"/profile"}/>
