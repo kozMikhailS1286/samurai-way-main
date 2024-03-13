@@ -3,7 +3,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {maxLengthCreator, required} from "../../utils/validators/required";
-import {Input} from "../common/FormControls/FormControls";
+import {createField, Input} from "../common/FormControls/FormControls";
 import {Redirect} from "react-router-dom";
 import {AppRootStateType} from "../../redux/redux-store";
 import s from "./../common/FormControls/FormControls.module.css"
@@ -24,16 +24,17 @@ const mapStateToProps = (state: AppRootStateType) => ({
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <Field placeholder={'Email'} component={Input} name={'email'}
-                       validate={[required]}
-                />
-            </div>
-            <div>
-                <Field placeholder={'Password'} component={Input} name={'password'} type={"password"}
-                       validate={[required, maxLength10]}
-                />
-            </div>
+            {/*<div>*/}
+                {/*<Field placeholder={'Email'} component={Input} name={'email'}*/}
+                {/*       validate={[required]}*/}
+            {/*</div>*/}
+            {createField("Email", Input, "email", [required])}
+            {/*<div>*/}
+            {/*    <Field placeholder={'Password'} component={Input} name={'password'} type={"password"}*/}
+            {/*           validate={[required, maxLength10]}*/}
+            {/*    />*/}
+            {/*</div>*/}
+            {createField('Password', Input, "password", [required, maxLength10])}
             <div>
                 <Field type={"checkbox"} component={Input} name={'rememberMe'}/> Remember me
             </div>
