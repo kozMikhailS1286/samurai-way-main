@@ -13,9 +13,10 @@ type UsersPropsType = {
     follow: (value: number) => void
     unfollow: (value: number) => void
     followingInProgress: Array<number>
+    portionSize: number
 }
 
-let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props}: UsersPropsType) => {
+let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, portionSize, ...props}: UsersPropsType) => {
 
     return (
         <div>
@@ -23,6 +24,7 @@ let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, ...p
                        pageSize={pageSize}
                        currentPage={currentPage}
                        onPageChanged={onPageChanged}
+                       portionSize={pageSize}
             />
             <div>
                 {

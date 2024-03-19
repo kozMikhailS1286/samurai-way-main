@@ -26,6 +26,7 @@ type UserPropsType = {
     isFetching: boolean
     followingInProgress: number[]
     getUsers: (currentPage:number, pageSize: number) => void
+    portionSize: number
 }
 class UsersContainer extends React.Component<UserPropsType, UserPropsType>{
 
@@ -51,6 +52,7 @@ class UsersContainer extends React.Component<UserPropsType, UserPropsType>{
                         follow={this.props.follow}
                         unfollow={this.props.unfollow}
                         followingInProgress={ this.props.followingInProgress}
+                        portionSize={this.props.portionSize}
         />
         </>
     }
@@ -64,6 +66,7 @@ let mapStateToProps = (state: AppRootStateType) => {
         currentPage: getCurrentPageWithSelector(state),
         isFetching: getIsFetchingWithSelector(state),
         followingInProgress: getFollowingInProgressWithSelector(state),
+        portionSize: state.usersPage.portionSize
     }
 }
 

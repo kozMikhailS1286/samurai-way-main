@@ -1,5 +1,4 @@
 import React from "react"
-import {setProfileStatusAC} from "../../../redux/profile-reducer";
 
 
 export type ProfileStatusPropsType = {

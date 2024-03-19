@@ -30,15 +30,17 @@ export type UsersStatePropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
+    portionSize: number
 }
 
 let initialState: UsersStatePropsType = {
     users:[],
-    pageSize: 100,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [],
+    portionSize: 10
 }
 
 const usersReducer = (state: UsersStatePropsType = initialState, action: ActionsType): UsersStatePropsType => {
