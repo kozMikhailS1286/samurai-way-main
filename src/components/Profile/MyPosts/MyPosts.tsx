@@ -20,7 +20,6 @@ let maxLength10 = maxLengthCreator(10)
 // Но с коннектом в Реакт Мемо нет необходимости, т.к. это в этом случае делает сам Реакт.
 
 const MyPosts = React.memo((props: MyPostType) => {
-    console.log("MyPosts", props)
     let postsElements =
         props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 

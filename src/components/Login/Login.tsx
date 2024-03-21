@@ -61,7 +61,7 @@ const Login = (props: any) => {
         return <Redirect to={"/profile"}/>
     }
     
-    return <div>
+    return <div className={s.login}>
         <h1> LOGIN </h1>
         <LoginReduxForm onSubmit={onSubmit} />
     </div>

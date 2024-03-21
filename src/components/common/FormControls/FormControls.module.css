@@ -5,6 +5,7 @@
 .formControl.error textarea
 {
     border: 2px red solid;
+
 }
 
 .formControl.error span {
@@ -14,4 +15,11 @@
 .formSummeryError {
     color: red;
     border: 2px red solid;
+}
+
+.login {
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 10px;
+    color: #032b72;
 }
