@@ -33,7 +33,7 @@ class App extends React.Component<AppPropsType, AppPropsType>{
     }
 
     render() {
-        if (this.props.initialized) {
+        if (false) {
             return <Preloader/>
         }
         return (
