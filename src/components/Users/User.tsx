@@ -2,6 +2,7 @@ import React from 'react';
 import userPhoto from "../../assets/images/user.png";
 import {UserStateType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import {ProfileType} from "../../redux/store";
 
 
 
@@ -13,6 +14,7 @@ type UserPropsType = {
 }
 
 const User = ({user, followingInProgress, unfollow, follow}: UserPropsType) => {
+    console.log("User render " + user.id)
     return (
         <div>
                     <span>

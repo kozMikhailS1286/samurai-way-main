@@ -9,7 +9,8 @@ let state = {
         {likesCount: 0, id: 3, message: "Three"}
     ],
     profile: null,
-    status: ""
+    status: "",
+    photo: "",
 }
 
 

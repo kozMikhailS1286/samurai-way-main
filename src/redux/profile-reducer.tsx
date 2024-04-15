@@ -7,6 +7,7 @@ const ADD_POST = "profile/ADD-POST" as const
 const SET_USER_PROFILE = "profile/SET-USER-PROFILE" as const
 const SET_STATUS = "profile/SET-STATUS" as const
 const DELETE_POST = "profile/DELETE_POST" as const
+const SET_PHOTO = "SET-PHOTO" as const
 
 
 let initialState:ProfilePageType = {
@@ -16,12 +17,13 @@ let initialState:ProfilePageType = {
             {likesCount: 0, id: 3, message: "Three"}
         ],
         profile: null,
-    status: ""
+    status: "",
+    photo: "",
     }
 
 
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): any => {
 
     
     if (action.type === ADD_POST) {
@@ -49,6 +51,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         return {
             ...state,
             posts: state.posts.filter(p => p.id !== action.id)
+        }
+    } else if (action.type === SET_PHOTO) {
+        return {
+            ...state,
+            profile: {...state.profile, photos: action.type}
         }
     } else {
         return state;
@@ -78,16 +85,30 @@ export const setUserProfile = (profile: ProfileType | null) => {
     }
 }
 
+export const setPhoto = (file: any) => {
+    return {
+        type: SET_PHOTO
+    }
+}
+
 
 export const getUserProfileTC = (userId: string) => async (dispatch: Dispatch<ActionsType>) => {
     let res = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(res.data));
 }
 
+export const setPhotoTC = (file: any) => async (dispatch: Dispatch<ActionsType>) => {
+    let res = await profileAPI.savePhoto(file)
+    if (res.data.resultCode === 0) {
+        dispatch(setPhoto(res.data.data.photos))
+    }
+}
+
 
 
 
 export const setProfileStatusAC = (status: string) => ({type: SET_STATUS, status} as const)
+export const setPhotoAC = (photos: any) => ({type: SET_PHOTO} as const)
 
 export const getProfileStatusTC = (userId: string) => async (dispatch: Dispatch<ActionsType>) => {
     let res = await profileAPI.getStatus(userId)

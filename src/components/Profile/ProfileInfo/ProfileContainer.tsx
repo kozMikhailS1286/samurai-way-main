@@ -2,7 +2,13 @@ import React, {useEffect} from "react";
 import Profile from "../Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../redux/redux-store";
-import {getProfileStatusTC, getUserProfileTC, setProfileStatusAC, updateStatusTC} from "../../../redux/profile-reducer";
+import {
+    getProfileStatusTC,
+    getUserProfileTC,
+    setPhotoTC,
+    setProfileStatusAC,
+    updateStatusTC
+} from "../../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ProfileType} from "../../../redux/store";
 import {compose} from "redux";
@@ -23,6 +29,7 @@ type MapSDispatchPropsType = {
     getProfileStatusTC: (userId: string) => void
     updateStatusTC: (status: string) => void
     setProfileStatusAC: (status: string) => void
+    setPhotoTC: any
 }
 
 type ownPropsType = MapStatePropsType & MapSDispatchPropsType;
@@ -49,6 +56,8 @@ function ProfileContainer(props: PropsType){
                      status={props.status}
                      updateStatus={props.updateStatusTC}
                      setProfileStatus={props.setProfileStatusAC}
+                     isOwner={!props.match.params.userId}
+                     setPhotoTC={props.setPhotoTC}
             />
         </div>
     );
@@ -74,6 +83,8 @@ export default compose<React.ComponentType>(
         getUserProfileTC,
         getProfileStatusTC,
         updateStatusTC,
-        setProfileStatusAC}
+        setProfileStatusAC,
+        setPhotoTC,
+        }
     ),
 )(WithUrlDataContainer)

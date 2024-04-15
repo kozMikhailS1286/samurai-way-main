@@ -14,6 +14,8 @@ import {
     getPageSizeWithSelector,
     getTotalUsersCountWithSelector, getUsersCreateSelector
 } from "../../redux/users-selectors";
+import profile from "../Profile/Profile";
+import {ProfileType} from "../../redux/store";
 
 type UserPropsType = {
     // setUsers: (users: UserStateType[]) => void

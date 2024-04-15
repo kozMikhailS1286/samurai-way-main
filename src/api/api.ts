@@ -41,6 +41,15 @@ export const profileAPI = {
             fieldsErrors: []
             messages: string[]
             resultCode: number}>(`profile/status`, {status})
+    },
+    savePhoto(file: any) {
+        const formData = new FormData()
+        formData.append("image", file)
+        return instance.put(`/profile/photo`, formData, {
+            headers: {
+                'Content-type': "multipart/form-data"
+            }
+        })
     }
 }
 

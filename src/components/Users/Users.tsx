@@ -2,6 +2,7 @@ import React from 'react';
 import {UserStateType} from "../../redux/users-reducer";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
+import {ProfileType} from "../../redux/store";
 
 
 type UsersPropsType = {
@@ -17,7 +18,7 @@ type UsersPropsType = {
 }
 
 let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, portionSize, ...props}: UsersPropsType) => {
-
+    console.log("UserS render")
     return (
         <div>
             <Paginator totalUsersCount={totalUsersCount}
@@ -25,6 +26,7 @@ let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, port
                        currentPage={currentPage}
                        onPageChanged={onPageChanged}
                        portionSize={pageSize}
+
             />
             <div>
                 {

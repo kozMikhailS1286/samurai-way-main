@@ -1,4 +1,4 @@
-import {deletePostAC, setProfileStatusAC, setUserProfile} from "./profile-reducer"
+import {deletePostAC, setPhotoAC, setProfileStatusAC, setUserProfile} from "./profile-reducer"
 import {addPostAC} from './profile-reducer'
 import {sendMessageAC} from './dialogs-reducer'
 import {
@@ -50,6 +50,7 @@ export type ProfilePageType = {
     posts: Array<PostType>
     profile: ProfileType | null
     status: string
+    photo: string
 }
 export type DialogPageType = {
     dialogs: Array<DialogType>
@@ -86,6 +87,7 @@ export type ActionsType =
     | ReturnType<typeof setProfileStatusAC>
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof setPhotoAC>
 
 // let store: StoreType = {
 //   _state: {
