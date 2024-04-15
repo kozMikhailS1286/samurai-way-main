@@ -87,7 +87,7 @@ export const setUserProfile = (profile: ProfileType | null) => {
 
 export const setPhoto = (file: any) => {
     return {
-        type: SET_PHOTO
+        type: SET_PHOTO, file
     }
 }
 
