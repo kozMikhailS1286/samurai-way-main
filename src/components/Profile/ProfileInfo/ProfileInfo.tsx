@@ -1,9 +1,9 @@
 import s from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/store";
 import Preloader from "../../common/Preloader/Preloader";
-// import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
-import {setPhotoTC} from "../../../redux/profile-reducer";
+import React, {useState} from "react";
+import ProfileDataForm from "./ProfileDataForm";
 
 
 type ProfileInfoPropsType = {
@@ -15,14 +15,26 @@ type ProfileInfoPropsType = {
     setPhotoTC: any
 }
 
+type ContactPropsType = {
+    contactTitle: string | null
+    contactValue?: string | null
+}
+
+type ProfileDataPropsType = {
+    profile: any
+    isOwner: boolean
+    goToEditMode: () => void
+}
+
 const ProfileInfo = (props: ProfileInfoPropsType) => {
 
     const onMainPhotoSelected = (e: any) => {
         if (e.target.files.length) {
             props.setPhotoTC(e.target.files[0])
         }
-
     }
+
+    const [editMode, setEditMode] = useState(false)
 
     if (!props.profile) {
         return <Preloader/>
@@ -38,43 +50,54 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>
                     {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
                 </div>
-
-                <div>
-                    <div>
-                        <b> fullName: </b> {props.profile.fullName}
-                    </div>
-                    <div>
-                        <b> lookingForAJob: </b> {props.profile.lookingForAJob ? "Yes" : "No"}
-                    </div>
-                        {props.profile.lookingForAJob &&
-                            <div>
-                                <b> My professional skills: </b> {props.profile.lookingForAJobDescription}
-                            </div>
-                        }
-                        <div>
-                            <b> About me: </b> {props.profile.aboutMe}
-                        </div>
-                    <div>
-                        <b> Contacts: </b>
-                    </div>
-
-
-
-
-                    github: {props.profile.contacts.github} <br/>
-                    vk: {props.profile.contacts.vk} <br/>
-                    facebook: {props.profile.contacts.facebook} <br/>
-                    instagram: {props.profile.contacts.instagram} <br/>
-                    twitter: {props.profile.contacts.twitter} <br/>
-                    website: {props.profile.contacts.website} <br/>
-                    youtube: {props.profile.contacts.youtube} <br/>
-                    mainLink: {props.profile.contacts.mainLink} <br/>
-                </div>
-
-
+                {editMode ? <ProfileDataForm />
+                    :
+                    <ProfileData profile={props.profile}
+                                 isOwner={props.isOwner}
+                                 goToEditMode={()=>{setEditMode(true)}}
+                    />}
             </div>
         </div>
     );
 }
+
+
+
+const ProfileData = (props: ProfileDataPropsType) => {
+
+    return <div>
+         {props.isOwner && <div> <button onClick={props.goToEditMode}> edit </button> </div>}
+        <div>
+            <b> fullName: </b> {props.profile.fullName}
+        </div>
+        <div>
+            <b> lookingForAJob: </b> {props.profile.lookingForAJob ? "Yes" : "No"}
+        </div>
+        {props.profile.lookingForAJob &&
+            <div>
+                <b> My professional skills: </b> {props.profile.lookingForAJobDescription}
+            </div>
+        }
+        <div>
+            <b> About me: </b> {props.profile.aboutMe}
+        </div>
+        <div>
+            <b> Contacts: </b> {Object.keys(props.profile.contacts).map((key) => {
+            return <Contact key={key}
+                            contactTitle={key}
+                            contactValue={props.profile?.contacts[key as keyof typeof props.profile.contacts]}/>
+        })}
+        </div>
+    </div>
+}
+
+
+const Contact = (props: ContactPropsType) => {
+    return <div className={s.contact}>
+        <b> {props.contactTitle}:</b> {props.contactValue}
+    </div>
+}
+
+
 
 export default ProfileInfo;
