@@ -22,6 +22,7 @@ type MapStatePropsType = {
     profile: ProfileType | null
     meId: number | null
     status: string
+    error: string | null
 }
 
 type MapSDispatchPropsType = {
@@ -60,6 +61,7 @@ function ProfileContainer(props: PropsType){
                      isOwner={!props.match.params.userId}
                      setPhotoTC={props.setPhotoTC}
                      saveProfile={props.saveProfile}
+                     error={props.error}
             />
         </div>
     );
@@ -72,12 +74,8 @@ let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     meId: state.auth.userId,
     status: state.profilePage.status,
+    error: state.profilePage.error
 })
-
-
-// export default withAuthRedirect(connect(mapStateToProps, {
-//     getUserProfileTC,
-// }) (WithUrlDataContainer));
 
 
 export default compose<React.ComponentType>(
@@ -87,7 +85,7 @@ export default compose<React.ComponentType>(
         updateStatusTC,
         setProfileStatusAC,
         setPhotoTC,
-        saveProfile
+        saveProfile,
         }
     ),
 )(WithUrlDataContainer)

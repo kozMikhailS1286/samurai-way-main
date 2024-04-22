@@ -9,6 +9,7 @@ import s from "./ProfileInfo.module.css";
 export type ProfileDataFormPropsType = {
     onSubmit: any
     profile: ProfileType
+    error: string | null
 }
 
  type OnSubmitType = {
@@ -18,6 +19,9 @@ export type ProfileDataFormPropsType = {
 const ProfileDataForm: React.FC<InjectedFormProps<OnSubmitType, ProfileDataFormPropsType> & ProfileDataFormPropsType> = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <button> save</button>
+        {props.error && <div>
+            {props.error}
+        </div>}
         <div>
             <b> Full name: </b> {createField("Full name", Input, "fullName", [])}
         </div>
@@ -36,7 +40,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<OnSubmitType, ProfileDataFormP
         </div>
         <div>
             <b> Contacts: </b> {Object.keys(props.profile.contacts).map((key) => {
-            return <div className={s.descriptionBlock}>
+            return <div key={key} className={s.descriptionBlock}>
                 <b> {key}:  {createField(key, Input, "contacts." + key, [])} </b>
             </div>
         })}

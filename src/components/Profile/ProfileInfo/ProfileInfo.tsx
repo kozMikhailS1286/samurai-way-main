@@ -15,6 +15,7 @@ type ProfileInfoPropsType = {
     isOwner: boolean
     setPhotoTC: any
     saveProfile: (formData: any) => any
+    error: string | null
 }
 
 type ContactPropsType = {
@@ -35,15 +36,18 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             props.setPhotoTC(e.target.files[0])
         }
     }
-
+    const [editMode, setEditMode] = useState(false)
 
     const onSubmit = (formData: ProfileDataFormPropsType) => {
         props.saveProfile(formData)
-        setEditMode(false)
+            .then(()=>{
+                setEditMode(false)
+            })
+
     }
 
 
-    const [editMode, setEditMode] = useState(false)
+
 
     if (!props.profile) {
         return <Preloader/>
@@ -62,6 +66,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 {editMode ? <ProfileDataFormReduxForm initialValues={props.profile}
                                                       onSubmit={onSubmit}
                                                       profile={props.profile}
+                                                      error={props.error}
                     />
                     :
                     <ProfileData profile={props.profile}

@@ -10,6 +10,7 @@ type ProfilePropsType = {
     isOwner: boolean
     setPhotoTC: any
     saveProfile: () => void
+    error: string | null
 }
 
 const Profile = (props: ProfilePropsType) => {
@@ -23,6 +24,7 @@ const Profile = (props: ProfilePropsType) => {
                             isOwner={props.isOwner}
                             setPhotoTC={props.setPhotoTC}
                             saveProfile={props.saveProfile}
+                            error={props.error}
             />
             <MyPostsContainer />
         </div>
