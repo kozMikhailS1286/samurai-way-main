@@ -1,11 +1,14 @@
 import React from "react";
 import {createField, Input, Textarea} from "../../common/FormControls/FormControls";
 import {reduxForm, InjectedFormProps} from "redux-form";
+import {ProfileType} from "../../../redux/store";
+import s from "./ProfileInfo.module.css";
 
 
 
 export type ProfileDataFormPropsType = {
     onSubmit: any
+    profile: ProfileType
 }
 
  type OnSubmitType = {
@@ -30,6 +33,13 @@ const ProfileDataForm: React.FC<InjectedFormProps<OnSubmitType, ProfileDataFormP
         </div>
         <div>
             <b> About me: </b> {createField("About me", Textarea, "AboutMe", [])}
+        </div>
+        <div>
+            <b> Contacts: </b> {Object.keys(props.profile.contacts).map((key) => {
+            return <div className={s.descriptionBlock}>
+                <b> {key}:  {createField(key, Input, "contacts." + key, [])} </b>
+            </div>
+        })}
         </div>
     </form>
 }

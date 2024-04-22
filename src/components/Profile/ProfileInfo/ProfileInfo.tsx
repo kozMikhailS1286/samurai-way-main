@@ -59,7 +59,10 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>
                     {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
                 </div>
-                {editMode ? <ProfileDataFormReduxForm initialValues={props.profile} onSubmit={onSubmit}/>
+                {editMode ? <ProfileDataFormReduxForm initialValues={props.profile}
+                                                      onSubmit={onSubmit}
+                                                      profile={props.profile}
+                    />
                     :
                     <ProfileData profile={props.profile}
                                  isOwner={props.isOwner}
