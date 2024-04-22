@@ -30,7 +30,7 @@ type MapSDispatchPropsType = {
     updateStatusTC: (status: string) => void
     setProfileStatusAC: (status: string) => void
     setPhotoTC: any
-    saveProfile: any
+    saveProfile: () => void
 }
 
 type ownPropsType = MapStatePropsType & MapSDispatchPropsType;

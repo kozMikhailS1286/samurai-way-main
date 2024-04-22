@@ -1,4 +1,4 @@
-import {PostType, ActionsType, ProfilePageType, ProfileType} from './store'
+import {PostType, ActionsType, ProfilePageType, ProfileType, TDispatch} from './store'
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
@@ -8,7 +8,6 @@ const SET_USER_PROFILE = "profile/SET-USER-PROFILE" as const
 const SET_STATUS = "profile/SET-STATUS" as const
 const DELETE_POST = "profile/DELETE_POST" as const
 const SET_PHOTO = "SET-PHOTO" as const
-const SET_PROFILE_DATA = "SET_PROFILE_DATA" as const
 
 
 let initialState:ProfilePageType = {
@@ -54,11 +53,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             posts: state.posts.filter(p => p.id !== action.id)
         }
     } else if (action.type === SET_PHOTO) {
-        return {
-            ...state,
-            profile: {...state.profile, photos: action.type}
-        }
-    } else if (action.type === SET_PROFILE_DATA) {
         return {
             ...state,
             profile: {...state.profile, photos: action.type}
@@ -110,15 +104,15 @@ export const setPhotoTC = (file: any) => async (dispatch: Dispatch<ActionsType>)
     }
 }
 
-export const saveProfile = (profile: any) => async (dispatch: Dispatch<ActionsType>) => {
+export const saveProfile = (profile: ProfileType) => async (dispatch: TDispatch, getState: any) => {
+
+    const userId = getState().auth.userId
     let res = await profileAPI.saveProfile(profile)
     if (res.data.resultCode === 0) {
-        dispatch(setDataAC(res.data.data))
+        dispatch(getUserProfileTC(userId))
     }
 }
 
-
-export const setDataAC = (profileData: any) => ({type: SET_PROFILE_DATA, profileData} as const)
 
 export const setProfileStatusAC = (status: string) => ({type: SET_STATUS, status} as const)
 export const setPhotoAC = (photos: any) => ({type: SET_PHOTO} as const)

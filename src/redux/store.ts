@@ -1,4 +1,4 @@
-import {deletePostAC, setDataAC, setPhotoAC, setProfileStatusAC, setUserProfile} from "./profile-reducer"
+import {deletePostAC, setPhotoAC, setProfileStatusAC, setUserProfile} from "./profile-reducer"
 import {addPostAC} from './profile-reducer'
 import {sendMessageAC} from './dialogs-reducer'
 import {
@@ -11,6 +11,8 @@ import {
 } from "./users-reducer";
 import {setAuthUserData} from "./auth-reducer";
 import {initializedSuccess} from "./app-reducer";
+import {ThunkDispatch} from "redux-thunk";
+import {AnyAction} from "redux";
 
 export type  ProfileType = {
     "aboutMe": string | null
@@ -27,7 +29,7 @@ export type  ProfileType = {
     "lookingForAJob": boolean,
     "lookingForAJobDescription": string | null
     "fullName": string | null
-    "userId": 2,
+    "userId": number,
     "photos": {
         "small": string | null
         "large": string | null
@@ -70,7 +72,7 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 
-
+export type TDispatch = ThunkDispatch<any, void, AnyAction>;
 export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof sendMessageAC>
@@ -88,7 +90,6 @@ export type ActionsType =
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof setPhotoAC>
-    | ReturnType<typeof setDataAC>
 
 // let store: StoreType = {
 //   _state: {

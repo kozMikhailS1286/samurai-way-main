@@ -16,7 +16,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<OnSubmitType, ProfileDataFormP
     return <form onSubmit={props.handleSubmit}>
         <button> save</button>
         <div>
-            <b> Full name: </b> {createField("Full name", Input, "FullName", [])}
+            <b> Full name: </b> {createField("Full name", Input, "fullName", [])}
         </div>
         <div>
             <b> Looking for a job: </b> {createField("", Input, "lookingForAJob", [], {type: "checkbox"})}

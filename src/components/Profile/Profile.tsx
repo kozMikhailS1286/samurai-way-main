@@ -9,7 +9,7 @@ type ProfilePropsType = {
     setProfileStatus: (status: string) => void
     isOwner: boolean
     setPhotoTC: any
-    saveProfile: any
+    saveProfile: () => void
 }
 
 const Profile = (props: ProfilePropsType) => {
