@@ -1,4 +1,4 @@
-import {deletePostAC, setPhotoAC, setProfileStatusAC, setUserProfile} from "./profile-reducer"
+import {deletePostAC, setDataAC, setPhotoAC, setProfileStatusAC, setUserProfile} from "./profile-reducer"
 import {addPostAC} from './profile-reducer'
 import {sendMessageAC} from './dialogs-reducer'
 import {
@@ -88,6 +88,7 @@ export type ActionsType =
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof setPhotoAC>
+    | ReturnType<typeof setDataAC>
 
 // let store: StoreType = {
 //   _state: {

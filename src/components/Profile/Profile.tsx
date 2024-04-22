@@ -1,7 +1,6 @@
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import {ProfileType} from '../../redux/store';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import {setPhotoTC} from "../../redux/profile-reducer";
 
 type ProfilePropsType = {
     profile: ProfileType | null
@@ -10,7 +9,7 @@ type ProfilePropsType = {
     setProfileStatus: (status: string) => void
     isOwner: boolean
     setPhotoTC: any
-
+    saveProfile: any
 }
 
 const Profile = (props: ProfilePropsType) => {
@@ -23,6 +22,7 @@ const Profile = (props: ProfilePropsType) => {
                             setProfileStatus={props.setProfileStatus}
                             isOwner={props.isOwner}
                             setPhotoTC={props.setPhotoTC}
+                            saveProfile={props.saveProfile}
             />
             <MyPostsContainer />
         </div>

@@ -5,7 +5,7 @@ import {AppRootStateType} from "../../../redux/redux-store";
 import {
     getProfileStatusTC,
     getUserProfileTC,
-    setPhotoTC,
+    setPhotoTC, saveProfile,
     setProfileStatusAC,
     updateStatusTC
 } from "../../../redux/profile-reducer";
@@ -30,6 +30,7 @@ type MapSDispatchPropsType = {
     updateStatusTC: (status: string) => void
     setProfileStatusAC: (status: string) => void
     setPhotoTC: any
+    saveProfile: any
 }
 
 type ownPropsType = MapStatePropsType & MapSDispatchPropsType;
@@ -58,6 +59,7 @@ function ProfileContainer(props: PropsType){
                      setProfileStatus={props.setProfileStatusAC}
                      isOwner={!props.match.params.userId}
                      setPhotoTC={props.setPhotoTC}
+                     saveProfile={props.saveProfile}
             />
         </div>
     );
@@ -85,6 +87,7 @@ export default compose<React.ComponentType>(
         updateStatusTC,
         setProfileStatusAC,
         setPhotoTC,
+        saveProfile
         }
     ),
 )(WithUrlDataContainer)

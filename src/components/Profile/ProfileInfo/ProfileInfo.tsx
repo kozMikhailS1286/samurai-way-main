@@ -3,9 +3,8 @@ import {ProfileType} from "../../../redux/store";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import React, {useState} from "react";
-import ProfileDataForm from "./ProfileDataForm";
+import {ProfileDataFormPropsType} from "./ProfileDataForm";
 import ProfileDataFormReduxForm from "./ProfileDataForm";
-import {FormDataType} from "../../Login/Login";
 
 
 type ProfileInfoPropsType = {
@@ -15,6 +14,7 @@ type ProfileInfoPropsType = {
     setProfileStatus: (status: string) => void
     isOwner: boolean
     setPhotoTC: any
+    saveProfile: any
 }
 
 type ContactPropsType = {
@@ -37,8 +37,8 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     }
 
 
-    const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+    const onSubmit = (formData: ProfileDataFormPropsType) => {
+        props.saveProfile(formData)
     }
 
 
