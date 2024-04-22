@@ -1,36 +1,36 @@
 import React from "react";
-import {createField, Input} from "../../common/FormControls/FormControls";
-import {reduxForm} from "redux-form";
-import {FormDataType} from "../../Login/Login";
+import {createField, Input, Textarea} from "../../common/FormControls/FormControls";
+import {reduxForm, InjectedFormProps} from "redux-form";
 
-const ProfileDataForm = () => {
-    return <form>
-        <button onClick={()=>{}}> save </button>
+
+
+type ProfileDataFormPropsType = {
+    onSubmit: any
+}
+
+ type OnSubmitType = {
+     [key: string]: any
+ }
+
+const ProfileDataForm: React.FC<InjectedFormProps<OnSubmitType, ProfileDataFormPropsType> & ProfileDataFormPropsType> = (props) => {
+    return <form onSubmit={props.handleSubmit}>
+        <button> save </button>
         <div>
             <b> Full name: </b> {createField("Full name", Input, "FullName", [])}
         </div>
-        {/*<div>*/}
-        {/*    <b> lookingForAJob: </b> {props.profile.lookingForAJob ? "Yes" : "No"}*/}
-        {/*</div>*/}
-        {/*{props.profile.lookingForAJob &&*/}
-        {/*    <div>*/}
-        {/*        <b> My professional skills: </b> {props.profile.lookingForAJobDescription}*/}
-        {/*    </div>*/}
-        {/*}*/}
-        {/*<div>*/}
-        {/*    <b> About me: </b> {props.profile.aboutMe}*/}
-        {/*</div>*/}
-        {/*<div>*/}
-        {/*    <b> Contacts: </b> {Object.keys(props.profile.contacts).map((key) => {*/}
-        {/*    return <Contact key={key}*/}
-        {/*                    contactTitle={key}*/}
-        {/*                    contactValue={props.profile?.contacts[key as keyof typeof props.profile.contacts]}/>*/}
-        {/*})}*/}
-        {/*</div>*/}
+        <div>
+            <b> lookingForAJob: </b> {createField("", Input , "Input", [], {type: "checkbox"})}
+        </div>
+            <div>
+                <b> My professional skills: </b> {createField("My professional skills", Textarea, "MyProfessionalSkills", [])}
+            </div>
+        <div>
+            <b> About me: </b> {createField("About me", Textarea, "AboutMe", [])}
+        </div>
     </form>
 }
 
-const ProfileDataFormReduxForm = reduxForm<FormDataType>({
+const ProfileDataFormReduxForm = reduxForm<OnSubmitType, ProfileDataFormPropsType>({
     form: 'edit-profile'
 })(ProfileDataForm)
 

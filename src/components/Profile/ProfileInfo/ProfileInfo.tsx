@@ -4,6 +4,8 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import React, {useState} from "react";
 import ProfileDataForm from "./ProfileDataForm";
+import ProfileDataFormReduxForm from "./ProfileDataForm";
+import {FormDataType} from "../../Login/Login";
 
 
 type ProfileInfoPropsType = {
@@ -34,6 +36,12 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         }
     }
 
+
+    const onSubmit = (formData: FormDataType) => {
+        console.log(formData)
+    }
+
+
     const [editMode, setEditMode] = useState(false)
 
     if (!props.profile) {
@@ -50,7 +58,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>
                     {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
                 </div>
-                {editMode ? <ProfileDataForm />
+                {editMode ? <ProfileDataFormReduxForm onSubmit={onSubmit}/>
                     :
                     <ProfileData profile={props.profile}
                                  isOwner={props.isOwner}
