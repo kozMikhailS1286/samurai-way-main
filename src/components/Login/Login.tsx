@@ -13,15 +13,21 @@ export type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captchaUrl?: string | null
+    captcha: string
 }
 
 let maxLength10 = maxLengthCreator(40)
 
 const mapStateToProps = (state: AppRootStateType) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 })
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+
+// const MyForm: React.StatelessComponent<Props & InjectedFormProps<{}, Props>>
+const LoginForm: React.FC<InjectedFormProps<FormDataType, {captchaUrl: string}> & {captchaUrl: string}> = ({handleSubmit, error, captchaUrl}) => {
+  //  console.log(captchaUrl)
     return (
         <form onSubmit={handleSubmit}>
             {/*<div>*/}
@@ -38,6 +44,8 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
             <div>
                 <Field type={"checkbox"} component={Input} name={'rememberMe'}/> Remember me
             </div>
+            {captchaUrl && <img src={captchaUrl}/>}
+            {captchaUrl && createField('Captcha', Input, "captcha", [required, maxLength10])}
                 {error && <div className={s.formSummeryError}>
                     {error}
                 </div>
@@ -47,23 +55,25 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
     )
 }
 
-export const LoginReduxForm = reduxForm<FormDataType>({
-    form: 'email'
+export const LoginReduxForm = reduxForm<FormDataType, {captchaUrl: string}>({
+    form: 'email',
 })(LoginForm)
 
 const Login = (props: any) => {
 
     const onSubmit = (formData: FormDataType) => {
-            props.login(formData.email, formData.password, formData.rememberMe)
+            props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
     if (props.isAuth) {
         return <Redirect to={"/profile"}/>
     }
-    
+    console.log(props)
+
     return <div className={s.login}>
         <h1> LOGIN </h1>
-        <LoginReduxForm onSubmit={onSubmit} />
+        <LoginReduxForm captchaUrl={props.captchaUrl}
+                        onSubmit={onSubmit} />
     </div>
 }
 

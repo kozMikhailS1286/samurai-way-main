@@ -9,7 +9,7 @@ import {
     setTotalUsersCount,
     toggleIsFetching, toggleFollowingProgress
 } from "./users-reducer";
-import {setAuthUserData} from "./auth-reducer";
+import {captchaAC, setAuthUserData} from "./auth-reducer";
 import {initializedSuccess} from "./app-reducer";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
@@ -90,6 +90,7 @@ export type ActionsType =
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof setPhotoAC>
+    | ReturnType<typeof captchaAC>
 
 // let store: StoreType = {
 //   _state: {
