@@ -129,6 +129,8 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch<Acti
     let res = await profileAPI.updateStatus(status)
     if (res.data.resultCode === 0) {
         dispatch(setProfileStatusAC(status))
+    } else {
+        dispatch(setProfileStatusAC("More 300 symbols, it s not good!"))
     }
 }
   

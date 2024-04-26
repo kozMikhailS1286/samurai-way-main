@@ -5,7 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
@@ -24,13 +24,19 @@ export type AppPropsType = {
     initialized?: boolean
 }
 
+export const NotFound = () => {
+    return <div>
+        Not Found
+    </div>
+}
 
-class App extends React.Component<AppPropsType, AppPropsType>{
+class App extends React.Component<AppPropsType, AppPropsType> {
 
 
     componentDidMount() {
         this.props.initializeAppTC()
     }
+
 
     render() {
         if (!this.props.initialized) {
@@ -41,31 +47,31 @@ class App extends React.Component<AppPropsType, AppPropsType>{
                 <HeaderContainer/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route exact path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
-                    <Route exact path='/dialogs' render={withSuspense(DialogsContainer)}/>
-                    <Route exact path='/users'
-                           render={() => <UsersContainer/>}/>
-                    <Route exact path='/news' component={News}/>
-                    <Route exact path='/music' component={Music}/>
-                    <Route exact path='/settings' component={Settings}/>
-                    <Route exact path='/login' component={Login}/>
+                    <Switch>
+                        <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
+                        <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+                        <Route path='/users'
+                               render={() => <UsersContainer/>}/>
+                        <Route path='/news' component={News}/>
+                        <Route path='/music' component={Music}/>
+                        <Route path='/settings' component={Settings}/>
+                        <Route path='/login' component={Login}/>
+                        <Route path='*' component={NotFound}/>
+                    </Switch>
                 </div>
             </div>
         );
     }
-    }
+}
 
-    const
+const
     mapStateToProps = (state: AppRootStateType) => ({
         initialized: state.app.initialized
     })
 
-    export
-    default
-
-    connect(mapStateToProps, {
-        initializeAppTC
-    })
+export default connect(mapStateToProps, {
+    initializeAppTC
+})
 
 (
     App
